@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Lib.Models
 {
-    public class JSEvent : IJSCommon, IParentNode, IGroupEntry
+    public class JSEvent :  IParentNode, IGroupEntry
     {
         [JsonPropertyName("@type")]
         public string @type { get; } = "jsevent";

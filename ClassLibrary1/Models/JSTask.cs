@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace Lib.Models
 {
-    public class JSTask : IJSCommon, IParentNode, IGroupEntry
+    public class JSTask : IParentNode, IGroupEntry
     {
 
         [JsonPropertyName("@type")]

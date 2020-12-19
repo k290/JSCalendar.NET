@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Lib.Models
 {
-    public class JSGroup : IJSCommon, IParentNode
+    public class JSGroup : IParentNode
     {
         [JsonPropertyName("@type")]
         public string @type { get; } = "jsgroup";
