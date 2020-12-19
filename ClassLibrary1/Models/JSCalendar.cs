@@ -6,7 +6,7 @@ using System.Text.Json.Serialization;
 
 namespace Lib.Models
 {
-
+    //JSON objects are only allow a single root element
     //This shouldnt be necessary at all. The spec defines the output of each object. So better to allow them to be built individually.
     [Obsolete("Don't need this at all unless you want to be able to build multiple into one file")]
     public class JSCalendar
