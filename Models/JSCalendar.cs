@@ -8,15 +8,15 @@ namespace Models
     public class JSCalendar
     {
         [JsonInclude]
-        public IList<JSEvent> _jsEvents = new List<JSEvent>();
+        public JSEvent jsEvent;
 
 
-        public void AddEvent(JSEvent jsEvent)
+        public void AddEvent(JSEvent jsEventToSet)
         {
-            _jsEvents.Add(jsEvent);
+            jsEvent = jsEventToSet;
         }
 
-        public override string ToString()
+        public  string GetSerializedResult()
         {
             return JsonSerializer.Serialize(this);
         }

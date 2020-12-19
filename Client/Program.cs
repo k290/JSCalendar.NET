@@ -11,7 +11,7 @@ namespace Client
                           .WithEvent(b => b.WithStart())
                           .Build();
 
-            var result = jsCalObject.ToString();
+            var result = jsCalObject.GetSerializedResult();
             Console.WriteLine(result);
             Console.ReadKey();
         }
