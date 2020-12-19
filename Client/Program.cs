@@ -11,7 +11,7 @@ namespace Client
                           .SetParentAsGroup(g => g
                                  .WithEvent(e=>e.WithStart())
                                  .WithEvent(e=>e.WithStart())
-                                 //.WithTask(t=>true) Need to figure out Task with nothing
+                                 .WithTask(t=> { }) 
                                )
                           .Build();
 
