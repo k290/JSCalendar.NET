@@ -2,7 +2,7 @@
 using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace Models
+namespace Lib.Models
 {
     public class JSGroup : IParentNode
     {
@@ -11,7 +11,7 @@ namespace Models
         public string @type { get; } = "jsgroup";
 
         [JsonInclude]
-        public ICollection<IGroupEntry> entries { get; } = new List<IGroupEntry> { };
+        public ICollection<IGroupEntry> entries { get; } = new List<IGroupEntry> { }; // will need to build a proper serializer https://khalidabuhakmeh.com/serialize-interface-instances-system-text-json
 
         public void AddEntry(IGroupEntry entry)
         {

@@ -1,7 +1,7 @@
-﻿using Models;
+﻿using Lib.Models;
 using System;
 
-namespace Builder
+namespace Lib.Builders
 {
     public class JSCalendarBuilder
     {

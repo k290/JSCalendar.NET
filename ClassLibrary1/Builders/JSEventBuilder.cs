@@ -1,8 +1,8 @@
-﻿using Models;
+﻿using Lib.Models;
 using System;
 using System.Text.Json;
 
-namespace Builder
+namespace Lib.Builders
 {
     public class JSEventBuilder
     {

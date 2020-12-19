@@ -1,12 +1,12 @@
 ﻿using System.Runtime.Serialization;
 using System.Text.Json.Serialization;
 
-namespace Models
+namespace Lib.Models
 {
-    public class JSEvent : IParentNode, IGroupEntry
+    public class JSTask : IParentNode, IGroupEntry
     {
         [JsonInclude]
         [JsonPropertyName("@type")]
-        public string @type { get; } = "jsevent";
+        public string @type { get; } = "jstask";
     }
 }

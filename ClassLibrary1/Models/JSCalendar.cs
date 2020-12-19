@@ -3,7 +3,7 @@ using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
-namespace Models
+namespace Lib.Models
 {
     public class JSCalendar
     {
