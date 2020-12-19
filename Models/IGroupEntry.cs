@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public interface IParentNode
+    public class IGroupEntry
     {
     }
 }

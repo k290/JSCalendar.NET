@@ -8,7 +8,7 @@ namespace Client
         static void Main(string[] args)
         {
             var jsCalObject = new JSCalendarBuilder()
-                          .WithEvent(b => b.WithStart())
+                          .SetParentAsGroup(b => b.WithStart())
                           .Build();
 
             var result = jsCalObject.GetSerializedResult();

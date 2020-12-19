@@ -9,13 +9,12 @@ namespace Models
     {
         public IParentNode parentNode;
 
-
-        public void AddEvent(JSEvent jsEvent)
+        public void SetParent(IParentNode parent)
         {
-            parentNode = jsEvent;
+            parentNode = parent;
         }
 
-        public  string GetSerializedResult()
+        public string GetSerializedResult()
         {
             return JsonSerializer.Serialize((object)parentNode);//JSON.Text does a polymorphic downcast if you supply the type as object, https://khalidabuhakmeh.com/serialize-interface-instances-system-text-json
         }
