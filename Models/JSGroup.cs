@@ -2,12 +2,8 @@
 
 namespace Models
 {
-    public class JSGroup 
+    public class JSGroup : IParentNode
     {
 
-        public override string ToString()
-        {
-            return base.ToString();
-        }
     }
 }

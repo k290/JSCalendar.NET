@@ -2,11 +2,8 @@
 
 namespace Models
 {
-    public class JSTask 
+    public class JSTask : IParentNode
     {
-        public override string ToString()
-        {
-            return base.ToString();
-        }
+
     }
 }

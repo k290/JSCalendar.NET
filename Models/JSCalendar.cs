@@ -7,18 +7,17 @@ namespace Models
 {
     public class JSCalendar
     {
-        [JsonInclude]
-        public JSEvent jsEvent;
+        public IParentNode parentNode;
 
 
-        public void AddEvent(JSEvent jsEventToSet)
+        public void AddEvent(JSEvent jsEvent)
         {
-            jsEvent = jsEventToSet;
+            parentNode = jsEvent;
         }
 
         public  string GetSerializedResult()
         {
-            return JsonSerializer.Serialize(this);
+            return JsonSerializer.Serialize((object)parentNode);//JSON.Text does a polymorphic downcast if you supply the type as object, https://khalidabuhakmeh.com/serialize-interface-instances-system-text-json
         }
     }
 }
