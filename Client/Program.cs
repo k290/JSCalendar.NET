@@ -9,9 +9,10 @@ namespace Client
         {
             var jsCalObject = new JSCalendarBuilder()
                           .SetParentAsGroup(g => g
-                                 .WithEvent(e=>e.WithStart())
-                                 .WithEvent(e=>e.WithStart())
-                                 .WithTask(t=> { }) 
+                                 .WithUid("Group01")
+                                 .WithEvent(e=>e.WithUid("E1"))
+                                 .WithEvent(e=>e.WithUid("E2"))
+                                 .WithTask(t=> t.WithUid("T1")) 
                                )
                           .Build();
 

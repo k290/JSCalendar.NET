@@ -30,6 +30,12 @@ namespace Lib.Builders
             return this;
         }
 
+        public JSGroupBuilder WithUid(string uid) //might want to autogenerate in the future and provide a GetUID method
+        {
+            _jsGroup.uid = uid;
+            return this;
+        }
+
         internal JSGroup Build()
         {
             return _jsGroup;

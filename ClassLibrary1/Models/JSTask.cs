@@ -8,6 +8,6 @@ namespace Lib.Models
 
         [JsonPropertyName("@type")]
         public string @type { get; } = "jstask";
-
+        public string uid { get; internal set; }
     }
 }

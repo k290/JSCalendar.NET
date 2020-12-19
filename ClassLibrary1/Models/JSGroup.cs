@@ -8,6 +8,7 @@ namespace Lib.Models
     {
         [JsonPropertyName("@type")]
         public string @type { get; } = "jsgroup";
+        public string uid { get; internal set; }
 
 
         [JsonInclude]
@@ -17,5 +18,6 @@ namespace Lib.Models
         {
             entries.Add(entry);
         }
+
     }
 }

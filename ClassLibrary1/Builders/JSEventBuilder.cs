@@ -13,12 +13,13 @@ namespace Lib.Builders
             _jsEvent = new JSEvent();
         }
 
- 
-        public JSEventBuilder WithStart()
+
+        public JSEventBuilder WithUid(string uid) //might want to autogenerate in the future and provide a GetUID method
         {
+            _jsEvent.uid = uid;
             return this;
         }
-  
+
         internal JSEvent Build()
         {
             return _jsEvent;
