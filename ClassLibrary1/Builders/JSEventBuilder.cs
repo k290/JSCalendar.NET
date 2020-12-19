@@ -1,4 +1,5 @@
-﻿using Lib.Models;
+﻿using FluentValidation;
+using Lib.Models;
 using System;
 using System.Text.Json;
 
@@ -22,6 +23,10 @@ namespace Lib.Builders
 
         internal JSEvent Build()
         {
+            var validator = new JSEventValidator();
+
+            validator.ValidateAndThrow(_jsEvent); //todo possibly use Async
+
             return _jsEvent;
         }
     }
