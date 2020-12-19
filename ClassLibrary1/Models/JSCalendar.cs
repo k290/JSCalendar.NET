@@ -16,7 +16,7 @@ namespace Lib.Models
 
         public string GetSerializedResult()
         {
-            return JsonSerializer.Serialize((object)parentNode);//JSON.Text does a polymorphic downcast if you supply the type as object, https://khalidabuhakmeh.com/serialize-interface-instances-system-text-json
+            return JsonSerializer.Serialize(parentNode);//JSON.Text does a polymorphic downcast if you supply the type as object, https://khalidabuhakmeh.com/serialize-interface-instances-system-text-json
         }
     }
 }
