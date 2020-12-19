@@ -4,11 +4,11 @@ using System.Text.Json.Serialization;
 
 namespace Lib.Models
 {
-    public class JSGroup : IParentNode
+    public class JSGroup : IJSCommon, IParentNode
     {
-        [JsonInclude]
         [JsonPropertyName("@type")]
         public string @type { get; } = "jsgroup";
+
 
         [JsonInclude]
         public ICollection<IGroupEntry> entries { get; } = new List<IGroupEntry> { }; // will need to build a proper serializer https://khalidabuhakmeh.com/serialize-interface-instances-system-text-json

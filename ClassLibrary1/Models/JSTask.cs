@@ -3,10 +3,11 @@ using System.Text.Json.Serialization;
 
 namespace Lib.Models
 {
-    public class JSTask : IParentNode, IGroupEntry
+    public class JSTask : IJSCommon, IParentNode, IGroupEntry
     {
-        [JsonInclude]
+
         [JsonPropertyName("@type")]
         public string @type { get; } = "jstask";
+
     }
 }
