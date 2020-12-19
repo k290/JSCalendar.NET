@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Models
 {
-    public class IGroupEntry
+    public interface IGroupEntry
     {
     }
 }

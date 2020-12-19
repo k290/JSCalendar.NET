@@ -14,12 +14,22 @@ namespace Builder
         }
 
  
-        public JSGroupBuilder WithEntry(IGroupEntry entry)
+        public JSGroupBuilder WithEvent(Action<JSEventBuilder> eventBuilderAction)
         {
-            _jsGroup.AddEntry(entry);
+            var eventBuilder = new JSEventBuilder();
+            eventBuilderAction(eventBuilder);
+            _jsGroup.AddEntry(eventBuilder.Build());
             return this;
         }
-  
+
+        public JSGroupBuilder WithTask(Action<JSTaskBuilder> taskBuilderAction)
+        {
+            var taskBuilder = new JSTaskBuilder();
+            taskBuilderAction(taskBuilder);
+            _jsGroup.AddEntry(taskBuilder.Build());
+            return this;
+        }
+
         internal JSGroup Build()
         {
             return _jsGroup;
