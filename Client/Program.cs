@@ -7,7 +7,11 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            var result = new JSCalendarBuilder().Event().Build();
+            var jsCalObject = new JSCalendarBuilder()
+                          .WithEvent(b => b.WithStart())
+                          .Build();
+
+            var result = jsCalObject.ToString();
             Console.WriteLine(result);
             Console.ReadKey();
         }

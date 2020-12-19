@@ -1,0 +1,1 @@
+Current spec implementation: https://tools.ietf.org/html/draft-ietf-calext-jscalendar-32

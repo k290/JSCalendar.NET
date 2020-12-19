@@ -1,10 +1,9 @@
 ﻿using System.Runtime.Serialization;
 
-namespace Builder
+namespace Models
 {
-    internal class JSCalendar 
+    public class JSTask 
     {
-
         public override string ToString()
         {
             return base.ToString();

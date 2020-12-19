@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models;
+using System;
 
 namespace Builder
 {
@@ -12,15 +13,18 @@ namespace Builder
         }
 
  
-        public JSCalendarBuilder Event()
+        public JSCalendarBuilder WithEvent(Action<JSEventBuilder> eventBuilderAction)
         {
+            var eventBuilder = new JSEventBuilder();
+            eventBuilderAction(eventBuilder);
+            _jsCalendar.AddEvent(eventBuilder.Build());
             return this;
         }
   
 
-        public string Build()
+        public JSCalendar Build()
         {
-            return _jsCalendar.ToString();
+            return _jsCalendar;
         }
     }
 }
