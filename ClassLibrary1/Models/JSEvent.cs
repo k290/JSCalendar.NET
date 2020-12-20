@@ -5,11 +5,10 @@ using System.Text.Json.Serialization;
 
 namespace Lib.Models
 {
-    public class JSEvent :  IParentNode, IGroupEntry
+    public sealed class JSEvent :  JSCommon, IParentNode, IGroupEntry
     {
         [JsonPropertyName("@type")]
-        public string @type { get; } = "jsevent";
-        public string uid { get; internal set; }
+        public override string @type { get; } = "jsevent";
 
         public string GetJson()
         {
@@ -21,8 +20,7 @@ namespace Lib.Models
     {
         public JSEventValidator()
         {
-            RuleFor(e => e.type).NotEmpty();
-            RuleFor(e => e.uid).NotEmpty();
+           //Custom event validation
         }
     }
 }

@@ -4,12 +4,11 @@ using System.Text.Json.Serialization;
 
 namespace Lib.Models
 {
-    public class JSTask : IParentNode, IGroupEntry
+    public class JSTask : JSCommon, IParentNode, IGroupEntry
     {
 
         [JsonPropertyName("@type")]
-        public string @type { get; } = "jstask";
-        public string uid { get; internal set; }
+        public override string @type { get; } = "jstask";
 
         public string GetJson()
         {

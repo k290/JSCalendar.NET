@@ -5,11 +5,10 @@ using System.Text.Json.Serialization;
 
 namespace Lib.Models
 {
-    public class JSGroup : IParentNode
+    public class JSGroup :  JSCommon, IParentNode
     {
         [JsonPropertyName("@type")]
-        public string @type { get; } = "jsgroup";
-        public string uid { get; internal set; }
+        public override string @type { get; } = "jsgroup";
 
 
         [JsonInclude]
