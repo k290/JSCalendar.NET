@@ -15,6 +15,7 @@ namespace Client
                           .Build();
 
             var result = builtObject.GetJson();
+            Console.WriteLine(result);
 
 
             var builtObjectBad = new JSGroupBuilder()
@@ -26,7 +27,7 @@ namespace Client
 
             var resultBad = builtObject.GetJson();
 
-            Console.WriteLine(result);
+
             Console.ReadKey();
         }
     }

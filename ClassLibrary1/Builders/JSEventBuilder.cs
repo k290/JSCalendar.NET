@@ -5,29 +5,24 @@ using System.Text.Json;
 
 namespace Lib.Builders
 {
-    public class JSEventBuilder
+    public class JSEventBuilder: JSCommonBuilder<JSEvent, JSEventBuilder>
     {
-        private JSEvent _jsEvent;
+        protected override JSEvent _jsCalendarObject { get; set; }
 
         public JSEventBuilder()
         {
-            _jsEvent = new JSEvent();
+            _jsCalendarObject = new JSEvent();
         }
 
 
-        public JSEventBuilder WithUid(string uid)
-        {
-            _jsEvent.uid = uid;
-            return this;
-        }
 
         public JSEvent Build()
         {
             var validator = new JSEventValidator();
 
-            validator.ValidateAndThrow(_jsEvent); //todo possibly use Async
+            validator.ValidateAndThrow(_jsCalendarObject); //todo possibly use Async
 
-            return _jsEvent;
+            return _jsCalendarObject;
         }
 
     }
