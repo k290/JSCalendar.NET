@@ -15,7 +15,7 @@ namespace Lib.Builders
         }
 
 
-        public JSEventBuilder WithUid(string uid) //might want to autogenerate in the future and provide a GetUID method
+        public JSEventBuilder WithUid(string uid)
         {
             _jsEvent.uid = uid;
             return this;

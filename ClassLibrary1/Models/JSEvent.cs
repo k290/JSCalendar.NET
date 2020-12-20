@@ -20,7 +20,7 @@ namespace Lib.Models
     {
         public JSEventValidator()
         {
-           //Custom event validation
+            Include(new JSCommonValidator());
         }
     }
 }
