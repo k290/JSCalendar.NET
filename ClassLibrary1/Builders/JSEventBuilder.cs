@@ -2,6 +2,7 @@
 using Lib.Models;
 using System;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Lib.Builders
 {
@@ -21,6 +22,15 @@ namespace Lib.Builders
             var validator = new JSEventValidator();
 
             validator.ValidateAndThrow(_jsCalendarObject); //todo possibly use Async
+
+            return _jsCalendarObject;
+        }
+
+        public async Task<JSEvent> BuildAsync()
+        {
+            var validator = new JSEventValidator();
+
+            await validator.ValidateAndThrowAsync(_jsCalendarObject); //todo possibly use Async
 
             return _jsCalendarObject;
         }

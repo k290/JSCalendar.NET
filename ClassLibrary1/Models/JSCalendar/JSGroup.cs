@@ -1,12 +1,14 @@
 ﻿using FluentValidation;
 using System.Collections.Generic;
+using System.IO;
 using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
+using System.Threading.Tasks;
 
 namespace Lib.Models
 {
-    public sealed class JSGroup :  JSCommon, IParentNode
+    public sealed class JSGroup : JSCommon, IParentNode
     {
         [JsonPropertyName("@type")]
         public override string @type { get; } = "jsgroup";
@@ -28,7 +30,18 @@ namespace Lib.Models
 
         public string GetJson()
         {
-            return JsonSerializer.Serialize(this, new JsonSerializerOptions {WriteIndented = true });
+            return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
+        }
+
+        public async Task<string> GetJsonAsync()
+        {
+            using (var stream = new MemoryStream())
+            {
+                await JsonSerializer.SerializeAsync(stream, this, new JsonSerializerOptions { WriteIndented = true });
+                stream.Position = 0;
+                using var reader = new StreamReader(stream);
+                return await reader.ReadToEndAsync();
+            }
         }
 
     }

@@ -110,7 +110,7 @@ namespace UnitTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = JsonDocument.Parse(result, options))
+            using (var document = JsonDocument.Parse(result, options)) //todo async
             {
                 var rootElement = document.RootElement;
                 var prop = rootElement.GetProperty("entries");

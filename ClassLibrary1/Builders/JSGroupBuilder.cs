@@ -2,6 +2,7 @@
 using Lib.Models;
 using System;
 using System.Text.Json;
+using System.Threading.Tasks;
 
 namespace Lib.Builders
 {
@@ -42,6 +43,15 @@ namespace Lib.Builders
             var validator = new JSGroupValidator();
 
             validator.ValidateAndThrow(_jsCalendarObject); //todo possibly use Async
+            return _jsCalendarObject;
+        }
+
+        public async Task<JSGroup> BuildAsync()
+        {
+            var validator = new JSGroupValidator();
+
+            await validator.ValidateAndThrowAsync(_jsCalendarObject); //todo possibly use Async
+
             return _jsCalendarObject;
         }
     }
