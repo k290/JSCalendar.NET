@@ -1,4 +1,5 @@
 ﻿using System.Runtime.Serialization;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Lib.Models
@@ -9,5 +10,10 @@ namespace Lib.Models
         [JsonPropertyName("@type")]
         public string @type { get; } = "jstask";
         public string uid { get; internal set; }
+
+        public string GetJson()
+        {
+            return JsonSerializer.Serialize(this);
+        }
     }
 }

@@ -13,14 +13,14 @@ namespace Lib.Builders
             _jsTask = new JSTask();
         }
 
-        public JSTaskBuilder WithUid(string uid) //might want to autogenerate in the future and provide a GetUID method
+        public JSTaskBuilder WithUid(string uid) //might want to autogenerate in the future and provide a GetUID method?
         {
             _jsTask.uid = uid;
             return this;
         }
 
 
-        internal JSTask Build()
+        public JSTask Build()
         {
             return _jsTask;
         }

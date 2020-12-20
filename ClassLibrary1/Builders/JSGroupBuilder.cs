@@ -36,7 +36,7 @@ namespace Lib.Builders
             return this;
         }
 
-        internal JSGroup Build()
+        public JSGroup Build()
         {
             return _jsGroup;
         }

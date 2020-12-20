@@ -7,16 +7,14 @@ namespace Client
     {
         static void Main(string[] args)
         {
-            var jsCalObject = new JSCalendarBuilder()
-                          .SetParentAsGroup(g => g
+            var builtObject = new JSGroupBuilder()
                                  .WithUid("Group01")
-                                 .WithEvent(e=>e.WithUid("E1"))
-                                 .WithEvent(e=>e.WithUid("E2"))
-                                 .WithTask(t=> t.WithUid("T1")) 
-                               )
+                                 .WithEvent(e => e.WithUid("E1"))
+                                 .WithEvent(e => e.WithUid("E2"))
+                                 .WithTask(t => t.WithUid("T1"))
                           .Build();
 
-            var result = jsCalObject.GetSerializedResult();
+            var result = builtObject.GetJson();
 
 
             //var jsCalObjectBad = new JSCalendarBuilder()

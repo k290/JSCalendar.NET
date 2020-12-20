@@ -21,7 +21,7 @@ namespace Lib.Builders
             return this;
         }
 
-        internal JSEvent Build()
+        public JSEvent Build()
         {
             var validator = new JSEventValidator();
 
@@ -29,5 +29,6 @@ namespace Lib.Builders
 
             return _jsEvent;
         }
+
     }
 }

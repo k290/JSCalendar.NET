@@ -1,5 +1,6 @@
 ﻿using FluentValidation;
 using System.Runtime.Serialization;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Lib.Models
@@ -9,6 +10,11 @@ namespace Lib.Models
         [JsonPropertyName("@type")]
         public string @type { get; } = "jsevent";
         public string uid { get; internal set; }
+
+        public string GetJson()
+        {
+            return JsonSerializer.Serialize(this);
+        }
     }
 
     public class JSEventValidator : AbstractValidator<JSEvent>

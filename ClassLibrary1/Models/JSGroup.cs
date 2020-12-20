@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Runtime.Serialization;
+using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Lib.Models
@@ -14,9 +15,14 @@ namespace Lib.Models
         [JsonInclude]
         public ICollection<IGroupEntry> entries { get; } = new List<IGroupEntry> { }; // will need to build a proper serializer https://khalidabuhakmeh.com/serialize-interface-instances-system-text-json
 
-        public void AddEntry(IGroupEntry entry)
+        internal void AddEntry(IGroupEntry entry)
         {
             entries.Add(entry);
+        }
+
+        public string GetJson()
+        {
+            return JsonSerializer.Serialize(this);
         }
 
     }
