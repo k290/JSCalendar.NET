@@ -1,6 +1,7 @@
 using FluentValidation;
 using Lib.Builders;
 using System;
+using System.Collections.Generic;
 using System.Text.Json;
 using Xunit;
 
@@ -53,6 +54,37 @@ namespace UnitTests
                 Assert.Equal("jsgroup", prop.GetString());
             }
         }
+        [Fact]
+        public void GivenAValidGroupBuilderWithoutOptionalSource_SourceNotInResult()
+        {
+            var result = new JSGroupBuilder().WithUid("Valid").Build().GetJson();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using (var document = JsonDocument.Parse(result, options))
+            {
+                var rootElement = document.RootElement;
+                Assert.Throws<KeyNotFoundException>(()=>rootElement.GetProperty("source"));
+            }
+        }
+
+        [Fact]
+        public void GivenAValidGroupBuilderWithtOptionalSource_SourceInResult()
+        {
+            var result = new JSGroupBuilder().WithUid("Valid").WithSource("https://uri.com").Build().GetJson();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using (var document = JsonDocument.Parse(result, options))
+            {
+                var rootElement = document.RootElement;
+                var prop = rootElement.GetProperty("source");
+                Assert.Equal("https://uri.com", prop.GetString());
+            }
+        }
+
         [Fact]
         public void GivenAValidGroupBuilder_HasEmptyArrayForEntries()
         {
@@ -116,5 +148,7 @@ namespace UnitTests
                 Assert.Equal(2, prop.GetArrayLength());
             }
         }
+
+ 
     }
 }
