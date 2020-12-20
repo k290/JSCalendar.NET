@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace UnitTests.Serialization
@@ -11,23 +12,23 @@ namespace UnitTests.Serialization
     public class GroupBuilderTests
     {
         [Fact]
-        public void GivenAGroupBuilderWithNoUID_ItThrowsValidationException()
+        public async Task GivenAGroupBuilderWithNoUID_ItThrowsValidationException()
         {
 
-            Assert.Throws<ValidationException>(() => new JSGroupBuilder().Build());
+            await Assert.ThrowsAsync<ValidationException>(async () => await new JSGroupBuilder().BuildAsync());
         }
 
         [Fact]
-        public void GivenAGroupBuilderWithBlankUID_ItThrowsValidationException()
+        public async Task GivenAGroupBuilderWithBlankUID_ItThrowsValidationException()
         {
 
-            Assert.Throws<ValidationException>(() => new JSGroupBuilder().WithUid("").Build());
+            await Assert.ThrowsAsync<ValidationException>(async () => await new JSGroupBuilder().WithUid("").BuildAsync());
         }
 
         [Fact]
-        public void GivenAValidGroupBuilder_HasUidInResult()
+        public async Task GivenAValidGroupBuilder_HasUidInResult()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").Build().GetJson();
+            var result = await (await new JSGroupBuilder().WithUid("Valid").BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -41,9 +42,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidGroupBuilder_HasTypeInResult()
+        public async Task GivenAValidGroupBuilder_HasTypeInResult()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").Build().GetJson();
+            var result = await (await new JSGroupBuilder().WithUid("Valid").BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -56,9 +57,9 @@ namespace UnitTests.Serialization
             }
         }
         [Fact]
-        public void GivenAValidGroupBuilderWithoutOptionalSource_SourceNotInResult()
+        public async Task GivenAValidGroupBuilderWithoutOptionalSource_SourceNotInResult()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").Build().GetJson();
+            var result = await ( await new JSGroupBuilder().WithUid("Valid").BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -71,9 +72,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidGroupBuilderWithOptionalSource_SourceInResult()
+        public async Task GivenAValidGroupBuilderWithOptionalSource_SourceInResult()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithSource("https://uri.com").Build().GetJson();
+            var result = await ( await new JSGroupBuilder().WithUid("Valid").WithSource("https://uri.com").BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -87,9 +88,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidGroupBuilder_HasEmptyArrayForEntries()
+        public async Task GivenAValidGroupBuilder_HasEmptyArrayForEntries()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").Build().GetJson();
+            var result = await (await new JSGroupBuilder().WithUid("Valid").BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -103,9 +104,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidGroupBuilderWith1Entries_HasPopulatedArraySize1()
+        public async Task GivenAValidGroupBuilderWith1Entries_HasPopulatedArraySize1()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithEvent(e => e.WithUid("Event1")).Build().GetJson();
+            var result = await (await new JSGroupBuilder().WithUid("Valid").WithEvent(e => e.WithUid("Event1")).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -119,9 +120,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidGroupBuilderWithTwoOfSameEntries_HasPopulatedArraySize2()
+        public async Task GivenAValidGroupBuilderWithTwoOfSameEntries_HasPopulatedArraySize2()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithEvent(e => e.WithUid("Event1")).WithEvent(e => e.WithUid("Event2")).Build().GetJson();
+            var result = await ( await new JSGroupBuilder().WithUid("Valid").WithEvent(e => e.WithUid("Event1")).WithEvent(e => e.WithUid("Event2")).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -135,9 +136,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidGroupBuilderWithTwoOfDifferentEntries_HasPopulatedArraySize2()
+        public async Task GivenAValidGroupBuilderWithTwoOfDifferentEntries_HasPopulatedArraySize2()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithEvent(e => e.WithUid("Event1")).WithTask(t => t.WithUid("Task1")).Build().GetJson();
+            var result = await ( await new JSGroupBuilder().WithUid("Valid").WithEvent(e => e.WithUid("Event1")).WithTask(t => t.WithUid("Task1")).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -151,9 +152,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidGroupBuilderWithoutOptionalRelatedTo_RelatedToNotInResult()
+        public async Task GivenAValidGroupBuilderWithoutOptionalRelatedTo_RelatedToNotInResult()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").Build().GetJson();
+            var result = await ( await new JSGroupBuilder().WithUid("Valid").BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -166,9 +167,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidGroupBuilder_WithValidOptionalRelatedTo_RelatedToInResult()
+        public async Task GivenAValidGroupBuilder_WithValidOptionalRelatedTo_RelatedToInResult()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).Build().GetJson();
+            var result = await ( await new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -184,9 +185,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidGroupBuilder_WithMultipleOptionalRelatedTo_BothRelatedToInResult()
+        public async Task GivenAValidGroupBuilder_WithMultipleOptionalRelatedTo_BothRelatedToInResult()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).WithRelatedTo("SomeId2", r=> { }).Build().GetJson();
+            var result = await ( await new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).WithRelatedTo("SomeId2", r=> { }).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -202,9 +203,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidGroupBuilder_WithValidOptionalRelatedTo_RelatedToHasType()
+        public async Task GivenAValidGroupBuilder_WithValidOptionalRelatedTo_RelatedToHasType()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).Build().GetJson();
+            var result = await ( await new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -221,9 +222,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidGroupBuilder_WithEmptyRelationsInRelatedTo_EmptyObjectInResult()
+        public async Task GivenAValidGroupBuilder_WithEmptyRelationsInRelatedTo_EmptyObjectInResult()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).Build().GetJson();
+            var result = await ( await new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -242,9 +243,9 @@ namespace UnitTests.Serialization
 
 
         [Fact]
-        public void GivenAValidGroupBuilder_WithRelationsInRelatedTo_RelationsExist()
+        public async Task GivenAValidGroupBuilder_WithRelationsInRelatedTo_RelationsExist()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r =>r.WithRelation("parent")).Build().GetJson();
+            var result = await ( await new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r =>r.WithRelation("parent")).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -261,9 +262,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidGroupBuilder_WithMultipleRelationsInRelatedTo_BothRelationsExist()
+        public async Task GivenAValidGroupBuilder_WithMultipleRelationsInRelatedTo_BothRelationsExist()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent").WithRelation("child")).Build().GetJson();
+            var result = await ( await new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent").WithRelation("child")).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Threading.Tasks;
 using Xunit;
 
 namespace UnitTests.Serialization
@@ -11,23 +12,23 @@ namespace UnitTests.Serialization
     public class EventBuilderTests
     {
         [Fact]
-        public void GivenAnEventBuilderWithNoUID_ItThrowsValidationException()
+        public async Task GivenAnEventBuilderWithNoUID_ItThrowsValidationException()
         {
 
-            Assert.Throws<ValidationException>(() => new JSEventBuilder().Build());
+            await Assert.ThrowsAsync<ValidationException>(async () => await new JSEventBuilder().BuildAsync());
         }
 
         [Fact]
-        public void GivenAnEventBuilderWithBlankUID_ItThrowsValidationException()
+        public async Task GivenAnEventBuilderWithBlankUID_ItThrowsValidationException()
         {
 
-            Assert.Throws<ValidationException>(() => new JSEventBuilder().WithUid("").Build());
+            await Assert.ThrowsAsync<ValidationException>(async () => await new JSEventBuilder().WithUid("").BuildAsync());
         }
 
         [Fact]
-        public void GivenAValidEventBuilder_HasUidInResult()
+        public async Task GivenAValidEventBuilder_HasUidInResult()
         {
-            var result = new JSEventBuilder().WithUid("Valid").Build().GetJson();
+            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -41,9 +42,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidEventBuilder_HasTypeInResult()
+        public async Task GivenAValidEventBuilder_HasTypeInResult()
         {
-            var result = new JSEventBuilder().WithUid("Valid").Build().GetJson();
+            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -57,9 +58,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidEventBuilderWithoutOptionalRelatedTo_RelatedToNotInResult()
+        public async Task GivenAValidEventBuilderWithoutOptionalRelatedTo_RelatedToNotInResult()
         {
-            var result = new JSEventBuilder().WithUid("Valid").Build().GetJson();
+            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -72,9 +73,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidEventBuilder_WithValidOptionalRelatedTo_RelatedToInResult()
+        public async Task GivenAValidEventBuilder_WithValidOptionalRelatedTo_RelatedToInResult()
         {
-            var result = new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).Build().GetJson();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -90,9 +91,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidEventBuilder_WithMultipleOptionalRelatedTo_BothRelatedToInResult()
+        public async Task GivenAValidEventBuilder_WithMultipleOptionalRelatedTo_BothRelatedToInResult()
         {
-            var result = new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).WithRelatedTo("SomeId2", r => { }).Build().GetJson();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).WithRelatedTo("SomeId2", r => { }).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -108,9 +109,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidEventBuilder_WithValidOptionalRelatedTo_RelatedToHasType()
+        public async Task GivenAValidEventBuilder_WithValidOptionalRelatedTo_RelatedToHasType()
         {
-            var result = new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).Build().GetJson();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -127,9 +128,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidEventBuilder_WithEmptyRelationsInRelatedTo_EmptyObjectInResult()
+        public async Task GivenAValidEventBuilder_WithEmptyRelationsInRelatedTo_EmptyObjectInResult()
         {
-            var result = new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).Build().GetJson();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -148,9 +149,9 @@ namespace UnitTests.Serialization
 
 
         [Fact]
-        public void GivenAValidEventBuilder_WithRelationsInRelatedTo_RelationsExist()
+        public async Task GivenAValidEventBuilder_WithRelationsInRelatedTo_RelationsExist()
         {
-            var result = new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent")).Build().GetJson();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent")).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -167,9 +168,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public void GivenAValidEventBuilder_WithMultipleRelationsInRelatedTo_BothRelationsExist()
+        public async Task GivenAValidEventBuilder_WithMultipleRelationsInRelatedTo_BothRelationsExist()
         {
-            var result = new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent").WithRelation("child")).Build().GetJson();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent").WithRelation("child")).BuildAsync()).GetJsonAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
