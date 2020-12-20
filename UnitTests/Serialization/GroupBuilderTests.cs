@@ -65,12 +65,12 @@ namespace UnitTests.Serialization
             using (var document = JsonDocument.Parse(result, options))
             {
                 var rootElement = document.RootElement;
-                Assert.Throws<KeyNotFoundException>(()=>rootElement.GetProperty("source"));
+                Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("source"));
             }
         }
 
         [Fact]
-        public void GivenAValidGroupBuilderWithtOptionalSource_SourceInResult()
+        public void GivenAValidGroupBuilderWithOptionalSource_SourceInResult()
         {
             var result = new JSGroupBuilder().WithUid("Valid").WithSource("https://uri.com").Build().GetJson();
             var options = new JsonDocumentOptions
@@ -104,7 +104,7 @@ namespace UnitTests.Serialization
         [Fact]
         public void GivenAValidGroupBuilderWith1Entries_HasPopulatedArraySize1()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithEvent(e=>e.WithUid("Event1")).Build().GetJson();
+            var result = new JSGroupBuilder().WithUid("Valid").WithEvent(e => e.WithUid("Event1")).Build().GetJson();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -120,7 +120,7 @@ namespace UnitTests.Serialization
         [Fact]
         public void GivenAValidGroupBuilderWithTwoOfSameEntries_HasPopulatedArraySize2()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithEvent(e => e.WithUid("Event1")).WithEvent(e=>e.WithUid("Event2")).Build().GetJson();
+            var result = new JSGroupBuilder().WithUid("Valid").WithEvent(e => e.WithUid("Event1")).WithEvent(e => e.WithUid("Event2")).Build().GetJson();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -136,7 +136,7 @@ namespace UnitTests.Serialization
         [Fact]
         public void GivenAValidGroupBuilderWithTwoOfDifferentEntries_HasPopulatedArraySize2()
         {
-            var result = new JSGroupBuilder().WithUid("Valid").WithEvent(e => e.WithUid("Event1")).WithTask(t=>t.WithUid("Task1")).Build().GetJson();
+            var result = new JSGroupBuilder().WithUid("Valid").WithEvent(e => e.WithUid("Event1")).WithTask(t => t.WithUid("Task1")).Build().GetJson();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -149,6 +149,59 @@ namespace UnitTests.Serialization
             }
         }
 
- 
+        [Fact]
+        public void GivenAValidGroupBuilderWithoutOptionalRelatedTo_RelatedToNotInResult()
+        {
+            var result = new JSGroupBuilder().WithUid("Valid").Build().GetJson();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using (var document = JsonDocument.Parse(result, options))
+            {
+                var rootElement = document.RootElement;
+                Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("relatedTo"));
+            }
+        }
+
+        [Fact]
+        public void GivenAValidGroupBuilder_WithValidOptionalRelatedTo_RelatedToInResult()
+        {
+            var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).Build().GetJson();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using (var document = JsonDocument.Parse(result, options))
+            {
+                var rootElement = document.RootElement;
+                var relatedToProp = rootElement.GetProperty("relatedTo");
+                var propExists = relatedToProp.TryGetProperty("SomeId", out _);
+                Assert.True(propExists);
+
+            }
+        }
+
+        [Fact]
+        public void GivenAValidGroupBuilder_WithEmptyRelationsInRelatedTo_EmptyObjectInResult()
+        {
+            var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).Build().GetJson();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using (var document = JsonDocument.Parse(result, options))
+            {
+                var rootElement = document.RootElement;
+                var relatedToProp = rootElement.GetProperty("relatedTo");
+                var relatedToIdProp = relatedToProp.GetProperty("SomeId");
+                var relationProp = relatedToIdProp.GetProperty("relation");
+                Assert.Equal(JsonValueKind.Object, relationProp.ValueKind);
+                Assert.Equal(JsonValueKind.Undefined, relationProp.EnumerateObject().Current.Value.ValueKind);
+
+            }
+        }
+
+
     }
 }

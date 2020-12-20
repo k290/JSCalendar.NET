@@ -53,6 +53,6 @@ namespace UnitTests.Serialization
                 var prop = rootElement.GetProperty("@type");
                 Assert.Equal("jsevent", prop.GetString());
             }
-        } 
+        }
     }
 }
