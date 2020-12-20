@@ -27,7 +27,7 @@ namespace Lib.JsonConfiguration
             switch (value)
             {
                 case null:
-                    JsonSerializer.Serialize(writer, (IParentNode)null, options);
+                    JsonSerializer.Serialize(writer, (IParentNode?)null, options);
                     break;
                 default:
                     {

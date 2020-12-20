@@ -11,7 +11,7 @@ namespace Lib.Builders
         public B WithUid(string uid)
         {
             _jsCalendarObject.uid = uid;
-            return this as B;
+            return (B)this;
         }
 
         public B WithRelatedTo(string id, Action<RelationBuilder> relationBuilderAction)
@@ -23,7 +23,7 @@ namespace Lib.Builders
                 _jsCalendarObject.relatedTos = new Dictionary<string, Relation>();
             }
             _jsCalendarObject.relatedTos.Add(id, relationBuilder.Build()); //todo use tryadd method instead??
-            return this as B;
+            return (B)this;
         }
     }
 }
