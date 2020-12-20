@@ -2,6 +2,7 @@ using FluentValidation;
 using Lib.Builders;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text.Json;
 using Xunit;
 
@@ -183,6 +184,43 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
+        public void GivenAValidGroupBuilder_WithMultipleOptionalRelatedTo_BothRelatedToInResult()
+        {
+            var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).WithRelatedTo("SomeId2", r=> { }).Build().GetJson();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using (var document = JsonDocument.Parse(result, options))
+            {
+                var rootElement = document.RootElement;
+                var relatedToProp = rootElement.GetProperty("relatedTo");
+                var subProps = relatedToProp.EnumerateObject();
+                Assert.Equal(2, subProps.Count());
+
+            }
+        }
+
+        [Fact]
+        public void GivenAValidGroupBuilder_WithValidOptionalRelatedTo_RelatedToHasType()
+        {
+            var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).Build().GetJson();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using (var document = JsonDocument.Parse(result, options))
+            {
+                var rootElement = document.RootElement;
+                var relatedToProp = rootElement.GetProperty("relatedTo");
+                var relatedToIdProp = relatedToProp.GetProperty("SomeId");
+                var typeProp = relatedToIdProp.GetProperty("@type");
+                Assert.Equal("Relation", typeProp.GetString());
+
+            }
+        }
+
+        [Fact]
         public void GivenAValidGroupBuilder_WithEmptyRelationsInRelatedTo_EmptyObjectInResult()
         {
             var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).Build().GetJson();
@@ -201,6 +239,47 @@ namespace UnitTests.Serialization
 
             }
         }
+
+
+        [Fact]
+        public void GivenAValidGroupBuilder_WithRelationsInRelatedTo_RelationsExist()
+        {
+            var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r =>r.WithRelation("parent")).Build().GetJson();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using (var document = JsonDocument.Parse(result, options))
+            {
+                var rootElement = document.RootElement;
+                var relatedToProp = rootElement.GetProperty("relatedTo");
+                var relatedToIdProp = relatedToProp.GetProperty("SomeId");
+                var relationProp = relatedToIdProp.GetProperty("relation");
+                var relationTypeProp = relationProp.GetProperty("parent");
+                Assert.True(relationTypeProp.GetBoolean());
+            }
+        }
+
+        [Fact]
+        public void GivenAValidGroupBuilder_WithMultipleRelationsInRelatedTo_BothRelationsExist()
+        {
+            var result = new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent").WithRelation("child")).Build().GetJson();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using (var document = JsonDocument.Parse(result, options))
+            {
+                var rootElement = document.RootElement;
+                var relatedToProp = rootElement.GetProperty("relatedTo");
+                var relatedToIdProp = relatedToProp.GetProperty("SomeId");
+                var relationProp = relatedToIdProp.GetProperty("relation");
+                var subProps = relationProp.EnumerateObject();
+                Assert.Equal(2, subProps.Count());
+            }
+        }
+
+
 
 
     }

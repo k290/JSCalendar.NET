@@ -9,22 +9,22 @@ namespace Lib.Builders
 {
     public class RelationBuilder
     {
-        private Relation relation { get; set; }
+        private Relation _relation { get; set; }
 
         public RelationBuilder()
         {
-            relation = new Relation();
+            _relation = new Relation();
         }
 
         public RelationBuilder WithRelation(string relationType)
         {
-            relation.relation.Add(relationType, true);
+            _relation.relations.Add(relationType, true);
             return this;
         }
 
         public Relation Build()
         {
-            return relation;
+            return _relation;
         }
 
     }

@@ -17,6 +17,7 @@ namespace Lib.Models.DataTypes
     {
         [JsonPropertyName("@type")]
         public string @type { get; } = "Relation";
-        public IDictionary<string, bool> relation { get; set; } = new Dictionary<string, bool>();
+        [JsonPropertyName("relation")]
+        public IDictionary<string, bool> relations { get; set; } = new Dictionary<string, bool>();
     }
 }

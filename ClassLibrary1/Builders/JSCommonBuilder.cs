@@ -18,11 +18,11 @@ namespace Lib.Builders
         {
             var relationBuilder = new RelationBuilder();
             relationBuilderAction(relationBuilder);
-            if(_jsCalendarObject.relatedTo == null)
+            if(_jsCalendarObject.relatedTos == null)
             {
-                _jsCalendarObject.relatedTo = new Dictionary<string, Relation>();
+                _jsCalendarObject.relatedTos = new Dictionary<string, Relation>();
             }
-            _jsCalendarObject.relatedTo.Add(id, relationBuilder.Build()); //todo use tryadd method instead??
+            _jsCalendarObject.relatedTos.Add(id, relationBuilder.Build()); //todo use tryadd method instead??
             return this as B;
         }
     }
