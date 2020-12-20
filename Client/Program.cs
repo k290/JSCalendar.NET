@@ -21,14 +21,14 @@ namespace Client
             Console.WriteLine(result);
 
 
-            var builtObjectBad = new JSGroupBuilder()
-                                          .WithUid("Group01")
-                                          .WithEvent(e => { })
-                                          .WithEvent(e => e.WithUid("E2"))
-                                          .WithTask(t => t.WithUid("T1"))
-                                   .Build();
+            //var builtObjectBad = new JSGroupBuilder()
+            //                              .WithUid("Group01")
+            //                              .WithEvent(e => { })
+            //                              .WithEvent(e => e.WithUid("E2"))
+            //                              .WithTask(t => t.WithUid("T1"))
+            //                       .Build();
 
-            var resultBad = builtObject.GetJson();
+            //var resultBad = builtObject.GetJson();
 
 
             Console.ReadKey();

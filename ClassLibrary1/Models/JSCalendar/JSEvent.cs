@@ -12,7 +12,7 @@ namespace Lib.Models
 
         public string GetJson()
         {
-            return JsonSerializer.Serialize(this);
+            return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
         }
     }
 
