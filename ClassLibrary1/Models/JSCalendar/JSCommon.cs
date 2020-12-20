@@ -15,6 +15,7 @@ namespace Lib.Models
         [JsonIgnore]
         public abstract string type { get; }
         public string uid { get; internal set; }
+        public string relatedTo { get; internal set; }
     }
 
     public class JSCommonValidator : AbstractValidator<JSCommon>
