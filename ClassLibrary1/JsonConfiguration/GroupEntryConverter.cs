@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace Lib.Builders
+namespace Lib.JsonConfiguration
 {
     public class GroupEntryConverter : JsonConverter<IGroupEntry>
     {
