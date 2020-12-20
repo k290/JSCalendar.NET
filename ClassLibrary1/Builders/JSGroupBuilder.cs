@@ -4,13 +4,13 @@ using System.Text.Json;
 
 namespace Lib.Builders
 {
-    public class JSGroupBuilder
+    public class JSGroupBuilder: JSCommonBuilder<JSGroup, JSGroupBuilder>
     {
-        private JSGroup _jsGroup;
+        protected override JSGroup _jsCalendarObject { get ; set; }
 
         public JSGroupBuilder()
         {
-            _jsGroup = new JSGroup();
+            _jsCalendarObject = new JSGroup();
         }
 
  
@@ -18,7 +18,7 @@ namespace Lib.Builders
         {
             var eventBuilder = new JSEventBuilder();
             eventBuilderAction(eventBuilder);
-            _jsGroup.AddEntry(eventBuilder.Build());
+            _jsCalendarObject.AddEntry(eventBuilder.Build());
             return this;
         }
 
@@ -26,19 +26,19 @@ namespace Lib.Builders
         {
             var taskBuilder = new JSTaskBuilder();
             taskBuilderAction(taskBuilder);
-            _jsGroup.AddEntry(taskBuilder.Build());
+            _jsCalendarObject.AddEntry(taskBuilder.Build());
             return this;
         }
 
         public JSGroupBuilder WithUid(string uid) //might want to autogenerate in the future and provide a GetUID method
         {
-            _jsGroup.uid = uid;
+            _jsCalendarObject.uid = uid;
             return this;
         }
 
         public JSGroup Build()
         {
-            return _jsGroup;
+            return _jsCalendarObject;
         }
     }
 }

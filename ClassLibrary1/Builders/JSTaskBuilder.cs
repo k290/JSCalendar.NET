@@ -4,25 +4,20 @@ using System.Text.Json;
 
 namespace Lib.Builders
 {
-    public class JSTaskBuilder
+    public class JSTaskBuilder: JSCommonBuilder<JSTask, JSTaskBuilder>
     {
-        private JSTask _jsTask;
+        protected override JSTask _jsCalendarObject { get; set;  }
+
 
         public JSTaskBuilder()
         {
-            _jsTask = new JSTask();
-        }
-
-        public JSTaskBuilder WithUid(string uid) //might want to autogenerate in the future and provide a GetUID method?
-        {
-            _jsTask.uid = uid;
-            return this;
+            _jsCalendarObject = new JSTask();
         }
 
 
         public JSTask Build()
         {
-            return _jsTask;
+            return _jsCalendarObject;
         }
     }
 }
