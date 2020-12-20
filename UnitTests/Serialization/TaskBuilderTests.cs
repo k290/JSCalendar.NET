@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Text.Json;
 using Xunit;
 
-namespace UnitTests
+namespace UnitTests.Serialization
 {
     public class TaskBuilderTests
     {
