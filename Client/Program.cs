@@ -1,5 +1,6 @@
 ﻿using Lib.Builders;
 using System;
+using System.Collections.Generic;
 
 namespace Client
 {
@@ -9,6 +10,8 @@ namespace Client
         {
             var builtObject = new JSGroupBuilder()
                                  .WithUid("Group01")
+                                 .WithRelatedTo("SomeId", r=>r.WithRelation("parent").WithRelation("child"))
+                                 .WithRelatedTo("SomeOtherId", r=>r.WithRelation("sibling"))
                                  .WithEvent(e => e.WithUid("E1"))
                                  .WithEvent(e => e.WithUid("E2"))
                                  .WithTask(t => t.WithUid("T1"))

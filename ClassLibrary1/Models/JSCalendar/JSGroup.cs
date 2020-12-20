@@ -11,12 +11,18 @@ namespace Lib.Models
         public override string @type { get; } = "jsgroup";
 
 
-        [JsonInclude]
         public ICollection<IGroupEntry> entries { get; } = new List<IGroupEntry> { }; // will need to build a proper serializer https://khalidabuhakmeh.com/serialize-interface-instances-system-text-json
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string source { get; private set; }
         internal void AddEntry(IGroupEntry entry)
         {
             entries.Add(entry);
+        }
+
+        internal void AddSource(string sourceToAdd) //todo MUST be a URI
+        {
+            source = sourceToAdd;
         }
 
         public string GetJson()

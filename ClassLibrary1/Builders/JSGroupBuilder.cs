@@ -30,9 +30,9 @@ namespace Lib.Builders
             return this;
         }
 
-        public JSGroupBuilder WithUid(string uid) //might want to autogenerate in the future and provide a GetUID method
+        public JSGroupBuilder WithSource(string source)  //todo MUST be a URI
         {
-            _jsCalendarObject.uid = uid;
+            _jsCalendarObject.AddSource(source);
             return this;
         }
 
