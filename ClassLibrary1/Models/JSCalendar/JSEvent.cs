@@ -27,6 +27,14 @@ namespace Lib.Models
                 return await reader.ReadToEndAsync();
             }
         }
+
+        public async Task<MemoryStream> GetJsonStreamAsync()
+        {
+            var stream = new MemoryStream();
+            await JsonSerializer.SerializeAsync(stream, this, new JsonSerializerOptions { WriteIndented = true });
+            stream.Position = 0;
+            return stream;
+        }
     }
 
     public class JSEventValidator : AbstractValidator<JSEvent>

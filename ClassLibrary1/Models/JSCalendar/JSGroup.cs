@@ -28,6 +28,7 @@ namespace Lib.Models
             source = sourceToAdd;
         }
 
+        //Move all json getters to parent 
         public string GetJson()
         {
             return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
@@ -42,6 +43,14 @@ namespace Lib.Models
                 using var reader = new StreamReader(stream);
                 return await reader.ReadToEndAsync();
             }
+        }
+
+        public async Task<MemoryStream> GetJsonStreamAsync()
+        {
+            var stream = new MemoryStream();
+            await JsonSerializer.SerializeAsync(stream, this, new JsonSerializerOptions { WriteIndented = true });
+            stream.Position = 0;
+            return stream;
         }
 
     }

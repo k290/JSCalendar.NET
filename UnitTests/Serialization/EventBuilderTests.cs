@@ -28,12 +28,12 @@ namespace UnitTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_HasUidInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonAsync();
+            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
             };
-            using (var document = JsonDocument.Parse(result, options))
+            using (var document = await JsonDocument.ParseAsync(result, options))
             {
                 var rootElement = document.RootElement;
                 var prop = rootElement.GetProperty("uid");
@@ -44,12 +44,12 @@ namespace UnitTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_HasTypeInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonAsync();
+            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
             };
-            using (var document = JsonDocument.Parse(result, options))
+            using (var document = await JsonDocument.ParseAsync(result, options))
             {
                 var rootElement = document.RootElement;
                 var prop = rootElement.GetProperty("@type");
@@ -60,12 +60,12 @@ namespace UnitTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilderWithoutOptionalRelatedTo_RelatedToNotInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonAsync();
+            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
             };
-            using (var document = JsonDocument.Parse(result, options))
+            using (var document = await JsonDocument.ParseAsync(result, options))
             {
                 var rootElement = document.RootElement;
                 Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("relatedTo"));
@@ -75,12 +75,12 @@ namespace UnitTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithValidOptionalRelatedTo_RelatedToInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonAsync();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
             };
-            using (var document = JsonDocument.Parse(result, options))
+            using (var document = await JsonDocument.ParseAsync(result, options))
             {
                 var rootElement = document.RootElement;
                 var relatedToProp = rootElement.GetProperty("relatedTo");
@@ -93,12 +93,12 @@ namespace UnitTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithMultipleOptionalRelatedTo_BothRelatedToInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).WithRelatedTo("SomeId2", r => { }).BuildAsync()).GetJsonAsync();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).WithRelatedTo("SomeId2", r => { }).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
             };
-            using (var document = JsonDocument.Parse(result, options))
+            using (var document = await JsonDocument.ParseAsync(result, options))
             {
                 var rootElement = document.RootElement;
                 var relatedToProp = rootElement.GetProperty("relatedTo");
@@ -111,12 +111,12 @@ namespace UnitTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithValidOptionalRelatedTo_RelatedToHasType()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonAsync();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
             };
-            using (var document = JsonDocument.Parse(result, options))
+            using (var document = await JsonDocument.ParseAsync(result, options))
             {
                 var rootElement = document.RootElement;
                 var relatedToProp = rootElement.GetProperty("relatedTo");
@@ -130,12 +130,12 @@ namespace UnitTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithEmptyRelationsInRelatedTo_EmptyObjectInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonAsync();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
             };
-            using (var document = JsonDocument.Parse(result, options))
+            using (var document = await JsonDocument.ParseAsync(result, options))
             {
                 var rootElement = document.RootElement;
                 var relatedToProp = rootElement.GetProperty("relatedTo");
@@ -151,12 +151,12 @@ namespace UnitTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithRelationsInRelatedTo_RelationsExist()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent")).BuildAsync()).GetJsonAsync();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent")).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
             };
-            using (var document = JsonDocument.Parse(result, options))
+            using (var document = await JsonDocument.ParseAsync(result, options))
             {
                 var rootElement = document.RootElement;
                 var relatedToProp = rootElement.GetProperty("relatedTo");
@@ -170,12 +170,12 @@ namespace UnitTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithMultipleRelationsInRelatedTo_BothRelationsExist()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent").WithRelation("child")).BuildAsync()).GetJsonAsync();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent").WithRelation("child")).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
             };
-            using (var document = JsonDocument.Parse(result, options))
+            using (var document = await JsonDocument.ParseAsync(result, options))
             {
                 var rootElement = document.RootElement;
                 var relatedToProp = rootElement.GetProperty("relatedTo");
