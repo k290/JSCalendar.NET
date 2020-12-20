@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using FluentValidation;
+using System.Collections.Generic;
 using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Lib.Models
 {
-    public class JSGroup :  JSCommon, IParentNode
+    public sealed class JSGroup :  JSCommon, IParentNode
     {
         [JsonPropertyName("@type")]
         public override string @type { get; } = "jsgroup";
@@ -30,5 +31,13 @@ namespace Lib.Models
             return JsonSerializer.Serialize(this);
         }
 
+    }
+
+    public class JSGroupValidator : AbstractValidator<JSGroup>
+    {
+        public JSGroupValidator()
+        {
+            Include(new JSCommonValidator());
+        }
     }
 }

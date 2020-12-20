@@ -1,4 +1,5 @@
-﻿using Lib.Models;
+﻿using FluentValidation;
+using Lib.Models;
 using System;
 using System.Text.Json;
 
@@ -17,6 +18,9 @@ namespace Lib.Builders
 
         public JSTask Build()
         {
+            var validator = new JSTaskValidator();
+
+            validator.ValidateAndThrow(_jsCalendarObject); //todo possibly use Async
             return _jsCalendarObject;
         }
     }

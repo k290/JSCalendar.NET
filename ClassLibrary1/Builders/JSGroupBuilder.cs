@@ -1,4 +1,5 @@
-﻿using Lib.Models;
+﻿using FluentValidation;
+using Lib.Models;
 using System;
 using System.Text.Json;
 
@@ -38,6 +39,9 @@ namespace Lib.Builders
 
         public JSGroup Build()
         {
+            var validator = new JSGroupValidator();
+
+            validator.ValidateAndThrow(_jsCalendarObject); //todo possibly use Async
             return _jsCalendarObject;
         }
     }

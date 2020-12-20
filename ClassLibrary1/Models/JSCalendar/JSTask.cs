@@ -1,10 +1,11 @@
-﻿using System.Runtime.Serialization;
+﻿using FluentValidation;
+using System.Runtime.Serialization;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 
 namespace Lib.Models
 {
-    public class JSTask : JSCommon, IParentNode, IGroupEntry
+    public sealed class JSTask : JSCommon, IParentNode, IGroupEntry
     {
 
         [JsonPropertyName("@type")]
@@ -13,6 +14,14 @@ namespace Lib.Models
         public string GetJson()
         {
             return JsonSerializer.Serialize(this);
+        }
+    }
+
+    public class JSTaskValidator : AbstractValidator<JSTask>
+    {
+        public JSTaskValidator()
+        {
+            Include(new JSCommonValidator());
         }
     }
 }
