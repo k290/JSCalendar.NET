@@ -53,7 +53,7 @@ namespace UnitTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = await JsonDocument.ParseAsync(result, options))// todo make async
+            using (var document = await JsonDocument.ParseAsync(result, options))
             {
                 var rootElement = document.RootElement;
                 var prop = rootElement.GetProperty("@type");

@@ -21,7 +21,7 @@ namespace Lib.Builders
         {
             var validator = new JSTaskValidator();
 
-            validator.ValidateAndThrow(_jsCalendarObject); //todo possibly use Async
+            validator.ValidateAndThrow(_jsCalendarObject);
             return _jsCalendarObject;
         }
 
@@ -29,7 +29,7 @@ namespace Lib.Builders
         {
             var validator = new JSTaskValidator();
 
-            await validator.ValidateAndThrowAsync(_jsCalendarObject); //todo possibly use Async
+            await validator.ValidateAndThrowAsync(_jsCalendarObject);
             return _jsCalendarObject;
         }
 

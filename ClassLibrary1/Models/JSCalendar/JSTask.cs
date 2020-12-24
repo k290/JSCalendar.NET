@@ -15,7 +15,7 @@ namespace Lib.Models
 
         public string GetJson()
         {
-            return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true }); //todo async
+            return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
         }
 
         public async Task<string> GetJsonAsync()
