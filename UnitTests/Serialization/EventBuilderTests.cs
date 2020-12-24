@@ -11,6 +11,7 @@ namespace UnitTests.Serialization
 {
     public class EventBuilderTests
     {
+        #region uid
         [Fact]
         public async Task GivenAnEventBuilderWithNoUID_ItThrowsValidationException()
         {
@@ -40,7 +41,9 @@ namespace UnitTests.Serialization
                 Assert.Equal("Valid", prop.GetString());
             }
         }
+        #endregion
 
+        #region type
         [Fact]
         public async Task GivenAValidEventBuilder_HasTypeInResult()
         {
@@ -56,7 +59,9 @@ namespace UnitTests.Serialization
                 Assert.Equal("jsevent", prop.GetString());
             }
         }
+        #endregion
 
+        #region relatedTo
         [Fact]
         public async Task GivenAValidEventBuilderWithoutOptionalRelatedTo_RelatedToNotInResult()
         {
@@ -185,5 +190,40 @@ namespace UnitTests.Serialization
                 Assert.Equal(2, subProps.Count());
             }
         }
+        #endregion
+
+        #region prodId
+
+        [Fact]
+        public async Task GivenAValidTaskBuilder_WithOptionalProdId_HasProdIdInResult()
+        {
+            var result = await (await new JSTaskBuilder().WithUid("Valid").WithProdId("A-GUID").BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using (var document = await JsonDocument.ParseAsync(result, options))
+            {
+                var rootElement = document.RootElement;
+                var prop = rootElement.GetProperty("prodId");
+                Assert.Equal("A-GUID", prop.GetString());
+            }
+        }
+
+        [Fact]
+        public async Task GivenAValidTaskBuilder_WithoutOptionalProdId_NoProdIdInResult()
+        {
+            var result = await (await new JSTaskBuilder().WithUid("Valid").BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using (var document = await JsonDocument.ParseAsync(result, options))
+            {
+                var rootElement = document.RootElement;
+                Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("prodId"));
+            }
+        }
+        #endregion
     }
 }

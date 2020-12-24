@@ -25,5 +25,11 @@ namespace Lib.Builders
             _jsCalendarObject.relatedTos.Add(id, relationBuilder.Build()); //todo use tryadd method instead??
             return (B)this;
         }
+
+        public B WithProdId(string prodId)
+        {
+            _jsCalendarObject.prodId = prodId;
+            return (B)this;
+        }
     }
 }
