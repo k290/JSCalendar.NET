@@ -164,6 +164,7 @@ namespace UnitTests.Serialization
         }
 
         #endregion
+
         #region relatedTo
 
         [Fact]
