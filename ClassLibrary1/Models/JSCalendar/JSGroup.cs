@@ -17,7 +17,7 @@ namespace Lib.Models
         public ICollection<IGroupEntry> entries { get; } = new List<IGroupEntry> { }; // will need to build a proper serializer https://khalidabuhakmeh.com/serialize-interface-instances-system-text-json
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public string source { get; private set; }
+        public string? source { get; private set; }
         internal void AddEntry(IGroupEntry entry)
         {
             entries.Add(entry);
