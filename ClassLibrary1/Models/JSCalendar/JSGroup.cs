@@ -1,4 +1,5 @@
 ﻿using FluentValidation;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Runtime.Serialization;
@@ -23,6 +24,7 @@ namespace Lib.Models
             entries.Add(entry);
         }
 
+        //these methods are silly. The private set is a setter
         internal void AddSource(string sourceToAdd) //todo MUST be a URI
         {
             source = sourceToAdd;
@@ -59,6 +61,7 @@ namespace Lib.Models
     {
         public JSGroupValidator()
         {
+            RuleFor(x => x.source).Must(s => Uri.IsWellFormedUriString(s, UriKind.Absolute));
             Include(new JSCommonValidator());
         }
     }
