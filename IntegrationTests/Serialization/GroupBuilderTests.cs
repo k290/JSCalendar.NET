@@ -7,7 +7,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace UnitTests.Serialization
+namespace IntegrationTests.Serialization
 {
     public class GroupBuilderTests
     {

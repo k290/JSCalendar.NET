@@ -20,6 +20,9 @@ namespace Lib.Models
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         public string? prodId { get; set; }
+
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        public string? created { get; set; }
     }
 
     public class JSCommonValidator : AbstractValidator<JSCommon>

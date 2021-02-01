@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 namespace Lib.Models.DataTypes
 {
 
+    //todo finish sorting out allowable keys for a relation
     public struct RelationKeys
     {
         public const string View1 = "Whatever string you like";
