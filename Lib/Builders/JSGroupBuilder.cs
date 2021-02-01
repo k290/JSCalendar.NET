@@ -32,7 +32,7 @@ namespace Lib.Builders
             return this;
         }
 
-        public JSGroupBuilder WithSource(string source)  //todo MUST be a URI
+        public JSGroupBuilder WithSource(string source)
         {
             _jsCalendarObject.AddSource(source);
             return this;
