@@ -61,7 +61,7 @@ namespace Lib.Models
     {
         public JSGroupValidator()
         {
-            RuleFor(x => x.source).Must(s => Uri.IsWellFormedUriString(s, UriKind.Absolute)).When(x => !string.IsNullOrEmpty(x.source));
+            RuleFor(x => x.source).Must(s => Uri.IsWellFormedUriString(s, UriKind.Absolute)).When(x => x.source != null);
             Include(new JSCommonValidator());
         }
     }
