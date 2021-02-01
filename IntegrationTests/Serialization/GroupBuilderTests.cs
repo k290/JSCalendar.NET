@@ -300,9 +300,9 @@ namespace UnitTests.Serialization
         #region prodId
 
         [Fact]
-        public async Task GivenAValidTaskBuilder_WithOptionalProdId_HasProdIdInResult()
+        public async Task GivenAValidGroupBuilder_WithOptionalProdId_HasProdIdInResult()
         {
-            var result = await (await new JSTaskBuilder().WithUid("Valid").WithProdId("A-GUID").BuildAsync()).GetJsonStreamAsync();
+            var result = await (await new JSGroupBuilder().WithUid("Valid").WithProdId("A-GUID").BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -316,9 +316,9 @@ namespace UnitTests.Serialization
         }
 
         [Fact]
-        public async Task GivenAValidTaskBuilder_WithoutOptionalProdId_NoProdIdInResult()
+        public async Task GivenAValidGroupBuilder_WithoutOptionalProdId_NoProdIdInResult()
         {
-            var result = await (await new JSTaskBuilder().WithUid("Valid").BuildAsync()).GetJsonStreamAsync();
+            var result = await (await new JSGroupBuilder().WithUid("Valid").BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
