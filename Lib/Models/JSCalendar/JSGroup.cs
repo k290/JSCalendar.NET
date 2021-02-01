@@ -25,12 +25,12 @@ namespace Lib.Models
         }
 
         //these methods are silly. The private set is a setter
-        internal void AddSource(string sourceToAdd) //todo MUST be a URI
+        internal void AddSource(string sourceToAdd)
         {
             source = sourceToAdd;
         }
 
-        //Move all json getters to parent 
+        //todo Move all json getters to parent 
         public string GetJson()
         {
             return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });

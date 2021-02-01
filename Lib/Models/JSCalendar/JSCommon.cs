@@ -9,8 +9,6 @@ using System.Threading.Tasks;
 
 namespace Lib.Models
 {
-
-
     public abstract class JSCommon
     {
         [JsonIgnore]
