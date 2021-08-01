@@ -35,18 +35,18 @@ namespace Lib.Models
 
         public async Task<string> GetJsonAsync()
         {
-            using (var stream = new MemoryStream())
+            using var stream = new MemoryStream();
+            await JsonSerializer.SerializeAsync(stream, this, new JsonSerializerOptions
             {
-                await JsonSerializer.SerializeAsync(stream, this, new JsonSerializerOptions { WriteIndented = true,
-                    Converters =
+                WriteIndented = true,
+                Converters =
                 {
                     new JsonStringEnumMemberConverter()
                 }
-                });
-                stream.Position = 0;
-                using var reader = new StreamReader(stream);
-                return await reader.ReadToEndAsync();
-            }
+            });
+            stream.Position = 0;
+            using var reader = new StreamReader(stream);
+            return await reader.ReadToEndAsync();
         }
 
         public async Task<MemoryStream> GetJsonStreamAsync()

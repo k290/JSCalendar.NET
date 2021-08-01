@@ -36,12 +36,10 @@ namespace IntegrationTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = await JsonDocument.ParseAsync(result, options))
-            {
-                var rootElement = document.RootElement;
-                var prop = rootElement.GetProperty("uid");
-                Assert.Equal("Valid", prop.GetString());
-            }
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("uid");
+            Assert.Equal("Valid", prop.GetString());
         }
         #endregion
 
@@ -54,12 +52,10 @@ namespace IntegrationTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = await JsonDocument.ParseAsync(result, options))
-            {
-                var rootElement = document.RootElement;
-                var prop = rootElement.GetProperty("@type");
-                Assert.Equal("jstask", prop.GetString());
-            }
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("@type");
+            Assert.Equal("jstask", prop.GetString());
         }
         #endregion
 
@@ -72,11 +68,9 @@ namespace IntegrationTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = await JsonDocument.ParseAsync(result, options))
-            {
-                var rootElement = document.RootElement;
-                Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("relatedTo"));
-            }
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("relatedTo"));
         }
 
         [Fact]
@@ -87,14 +81,11 @@ namespace IntegrationTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = await JsonDocument.ParseAsync(result, options))
-            {
-                var rootElement = document.RootElement;
-                var relatedToProp = rootElement.GetProperty("relatedTo");
-                var propExists = relatedToProp.TryGetProperty("SomeId", out _);
-                Assert.True(propExists);
-
-            }
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var relatedToProp = rootElement.GetProperty("relatedTo");
+            var propExists = relatedToProp.TryGetProperty("SomeId", out _);
+            Assert.True(propExists);
         }
 
         [Fact]
@@ -105,14 +96,11 @@ namespace IntegrationTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = await JsonDocument.ParseAsync(result, options))
-            {
-                var rootElement = document.RootElement;
-                var relatedToProp = rootElement.GetProperty("relatedTo");
-                var subProps = relatedToProp.EnumerateObject();
-                Assert.Equal(2, subProps.Count());
-
-            }
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var relatedToProp = rootElement.GetProperty("relatedTo");
+            var subProps = relatedToProp.EnumerateObject();
+            Assert.Equal(2, subProps.Count());
         }
 
         [Fact]
@@ -123,15 +111,12 @@ namespace IntegrationTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = await JsonDocument.ParseAsync(result, options))
-            {
-                var rootElement = document.RootElement;
-                var relatedToProp = rootElement.GetProperty("relatedTo");
-                var relatedToIdProp = relatedToProp.GetProperty("SomeId");
-                var typeProp = relatedToIdProp.GetProperty("@type");
-                Assert.Equal("Relation", typeProp.GetString());
-
-            }
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var relatedToProp = rootElement.GetProperty("relatedTo");
+            var relatedToIdProp = relatedToProp.GetProperty("SomeId");
+            var typeProp = relatedToIdProp.GetProperty("@type");
+            Assert.Equal("Relation", typeProp.GetString());
         }
 
         [Fact]
@@ -142,16 +127,13 @@ namespace IntegrationTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = await JsonDocument.ParseAsync(result, options))
-            {
-                var rootElement = document.RootElement;
-                var relatedToProp = rootElement.GetProperty("relatedTo");
-                var relatedToIdProp = relatedToProp.GetProperty("SomeId");
-                var relationProp = relatedToIdProp.GetProperty("relation");
-                Assert.Equal(JsonValueKind.Object, relationProp.ValueKind);
-                Assert.Equal(JsonValueKind.Undefined, relationProp.EnumerateObject().Current.Value.ValueKind);
-
-            }
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var relatedToProp = rootElement.GetProperty("relatedTo");
+            var relatedToIdProp = relatedToProp.GetProperty("SomeId");
+            var relationProp = relatedToIdProp.GetProperty("relation");
+            Assert.Equal(JsonValueKind.Object, relationProp.ValueKind);
+            Assert.Equal(JsonValueKind.Undefined, relationProp.EnumerateObject().Current.Value.ValueKind);
         }
 
 
@@ -163,15 +145,13 @@ namespace IntegrationTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = await JsonDocument.ParseAsync(result, options))
-            {
-                var rootElement = document.RootElement;
-                var relatedToProp = rootElement.GetProperty("relatedTo");
-                var relatedToIdProp = relatedToProp.GetProperty("SomeId");
-                var relationProp = relatedToIdProp.GetProperty("relation");
-                var relationTypeProp = relationProp.GetProperty("parent");
-                Assert.True(relationTypeProp.GetBoolean());
-            }
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var relatedToProp = rootElement.GetProperty("relatedTo");
+            var relatedToIdProp = relatedToProp.GetProperty("SomeId");
+            var relationProp = relatedToIdProp.GetProperty("relation");
+            var relationTypeProp = relationProp.GetProperty("parent");
+            Assert.True(relationTypeProp.GetBoolean());
         }
 
         [Fact]
@@ -182,15 +162,13 @@ namespace IntegrationTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = await JsonDocument.ParseAsync(result, options))
-            {
-                var rootElement = document.RootElement;
-                var relatedToProp = rootElement.GetProperty("relatedTo");
-                var relatedToIdProp = relatedToProp.GetProperty("SomeId");
-                var relationProp = relatedToIdProp.GetProperty("relation");
-                var subProps = relationProp.EnumerateObject();
-                Assert.Equal(2, subProps.Count());
-            }
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var relatedToProp = rootElement.GetProperty("relatedTo");
+            var relatedToIdProp = relatedToProp.GetProperty("SomeId");
+            var relationProp = relatedToIdProp.GetProperty("relation");
+            var subProps = relationProp.EnumerateObject();
+            Assert.Equal(2, subProps.Count());
         }
 
         [Fact]
@@ -226,12 +204,10 @@ namespace IntegrationTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = await JsonDocument.ParseAsync(result, options))
-            {
-                var rootElement = document.RootElement;
-                var prop = rootElement.GetProperty("prodId");
-                Assert.Equal("A-GUID", prop.GetString());
-            }
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("prodId");
+            Assert.Equal("A-GUID", prop.GetString());
         }
 
         [Fact]
@@ -242,11 +218,9 @@ namespace IntegrationTests.Serialization
             {
                 AllowTrailingCommas = true
             };
-            using (var document = await JsonDocument.ParseAsync(result, options))
-            {
-                var rootElement = document.RootElement;
-                Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("prodId"));
-            }
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("prodId"));
         }
         #endregion
     }
