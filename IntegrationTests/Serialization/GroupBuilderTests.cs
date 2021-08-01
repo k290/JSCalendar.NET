@@ -1,5 +1,6 @@
 using FluentValidation;
 using Lib.Builders;
+using Lib.Models.DataTypes;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -261,7 +262,7 @@ namespace IntegrationTests.Serialization
         [Fact]
         public async Task GivenAValidGroupBuilder_WithRelationsInRelatedTo_RelationsExist()
         {
-            var result = await (await new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent")).BuildAsync()).GetJsonStreamAsync();
+            var result = await (await new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent)).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -280,7 +281,7 @@ namespace IntegrationTests.Serialization
         [Fact]
         public async Task GivenAValidGroupBuilder_WithMultipleRelationsInRelatedTo_BothRelationsExist()
         {
-            var result = await (await new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation("parent").WithRelation("child")).BuildAsync()).GetJsonStreamAsync();
+            var result = await (await new JSGroupBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent).WithRelation(RelationType.Child)).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
