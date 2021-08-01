@@ -3,7 +3,21 @@ A .fluent NET implementaiton of the JSCalendar Spec
 
 https://datatracker.ietf.org/doc/html/rfc8984
 
-Shield: [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
+#Sample
+```
+            var builtObject = await new JSGroupBuilder()
+                                 .WithUid("Group01")
+                                 .WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent).WithRelation(RelationType.Child))
+                                 .WithRelatedTo("SomeOtherId", r => r.WithRelation(RelationType.Next))
+                                 .WithEvent(e => e.WithUid("E1"))
+                                 .WithEvent(e => e.WithUid("E2"))
+                                 .WithTask(t => t.WithUid("T1"))
+                          .BuildAsync();
+
+            var result = await builtObject.GetJsonAsync();
+```
+#License
+[![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
 This work is licensed under a
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
