@@ -6,7 +6,7 @@ https://datatracker.ietf.org/doc/html/rfc8984
 ## Current state
 This project is in pre-alpha, and under active development and user research.
 
-# Sample
+## Sample
 ```
             var builtObject = await new JSGroupBuilder()
                                  .WithUid("Group01")
