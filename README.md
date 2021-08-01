@@ -1,11 +1,13 @@
-# JSCalendar.NET
-A fluent .NET implementaiton of the IETF JSCalendar spec. The spec is intended to supersede the iCal spec. The reasons for this can be found in the spec itself.
+# JSCalendar.NET [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
-This .NET library aims to provide a sustainable, robust and performant solution to build, serialize and deserialize JSCalendar compliant JSON.  Whenever possible, the library encourages strict conformance to the spec.
+A fluent .NET implementaiton of the IETF JSCalendar spec. The spec is intended to supersede the iCal spec. The reasons for this can be found in the spec itself.
 
 https://datatracker.ietf.org/doc/html/rfc8984
 
 A brief overview can be found here: https://devguide.calconnect.org/jsCalendar-Topics/introduction/
+
+This .NET library aims to provide a sustainable, robust and performant solution to build, serialize and deserialize JSCalendar compliant JSON.  Whenever possible, the library encourages strict conformance to the spec.
+
 ## Vision
 If this project is viable, the goal is to make it sustainable over the long-term. Having more than one maintainer is in encouraged. Contributions from the community is encouraged. I am open to comments, suggestions and criticisms for any aspect of this project.
 
@@ -26,8 +28,6 @@ This project is in an experimental pre-alpha state. This means it is under initi
             var result = await builtObject.GetJsonAsync();
 ```
 # License
-
-[![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
 This work is licensed under a
 [Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License][cc-by-nc-sa].
