@@ -8,11 +8,11 @@ namespace Lib.Builders
 {
     public class JSEventBuilder: JSCommonBuilder<JSEvent, JSEventBuilder>
     {
-        protected override JSEvent _jsCalendarObject { get; set; }
+        protected override JSEvent JsCalendarObject { get; set; }
 
         public JSEventBuilder()
         {
-            _jsCalendarObject = new JSEvent();
+            JsCalendarObject = new JSEvent();
         }
 
 
@@ -21,18 +21,18 @@ namespace Lib.Builders
         {
             var validator = new JSEventValidator();
 
-            validator.ValidateAndThrow(_jsCalendarObject);
+            validator.ValidateAndThrow(JsCalendarObject);
 
-            return _jsCalendarObject;
+            return JsCalendarObject;
         }
 
         public async Task<JSEvent> BuildAsync()
         {
             var validator = new JSEventValidator();
 
-            await validator.ValidateAndThrowAsync(_jsCalendarObject);
+            await validator.ValidateAndThrowAsync(JsCalendarObject);
 
-            return _jsCalendarObject;
+            return JsCalendarObject;
         }
 
     }

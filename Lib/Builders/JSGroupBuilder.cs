@@ -8,11 +8,11 @@ namespace Lib.Builders
 {
     public class JSGroupBuilder: JSCommonBuilder<JSGroup, JSGroupBuilder>
     {
-        protected override JSGroup _jsCalendarObject { get ; set; }
+        protected override JSGroup JsCalendarObject { get ; set; }
 
         public JSGroupBuilder()
         {
-            _jsCalendarObject = new JSGroup();
+            JsCalendarObject = new JSGroup();
         }
 
  
@@ -20,7 +20,7 @@ namespace Lib.Builders
         {
             var eventBuilder = new JSEventBuilder();
             eventBuilderAction(eventBuilder);
-            _jsCalendarObject.AddEntry(eventBuilder.Build());
+            JsCalendarObject.AddEntry(eventBuilder.Build());
             return this;
         }
 
@@ -28,13 +28,13 @@ namespace Lib.Builders
         {
             var taskBuilder = new JSTaskBuilder();
             taskBuilderAction(taskBuilder);
-            _jsCalendarObject.AddEntry(taskBuilder.Build());
+            JsCalendarObject.AddEntry(taskBuilder.Build());
             return this;
         }
 
         public JSGroupBuilder WithSource(string source)
         {
-            _jsCalendarObject.AddSource(source);
+            JsCalendarObject.AddSource(source);
             return this;
         }
 
@@ -42,17 +42,17 @@ namespace Lib.Builders
         {
             var validator = new JSGroupValidator();
 
-            validator.ValidateAndThrow(_jsCalendarObject);
-            return _jsCalendarObject;
+            validator.ValidateAndThrow(JsCalendarObject);
+            return JsCalendarObject;
         }
 
         public async Task<JSGroup> BuildAsync()
         {
             var validator = new JSGroupValidator();
 
-            await validator.ValidateAndThrowAsync(_jsCalendarObject);
+            await validator.ValidateAndThrowAsync(JsCalendarObject);
 
-            return _jsCalendarObject;
+            return JsCalendarObject;
         }
     }
 }

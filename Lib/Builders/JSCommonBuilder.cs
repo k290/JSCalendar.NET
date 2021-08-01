@@ -7,10 +7,10 @@ namespace Lib.Builders
 {
     public abstract class JSCommonBuilder<E, B> where B: JSCommonBuilder<E, B> where E : JSCommon
     {
-        protected abstract E _jsCalendarObject { get; set;  }
+        protected abstract E JsCalendarObject { get; set;  }
         public B WithUid(string uid)
         {
-            _jsCalendarObject.uid = uid;
+            JsCalendarObject.uid = uid;
             return (B)this;
         }
 
@@ -18,17 +18,17 @@ namespace Lib.Builders
         {
             var relationBuilder = new RelationBuilder();
             relationBuilderAction(relationBuilder);
-            if(_jsCalendarObject.relatedTos == null)
+            if(JsCalendarObject.relatedTos == null)
             {
-                _jsCalendarObject.relatedTos = new Dictionary<string, Relation>();
+                JsCalendarObject.relatedTos = new Dictionary<string, Relation>();
             }
-            _jsCalendarObject.relatedTos.Add(id, relationBuilder.Build()); //todo use tryadd method instead??
+            JsCalendarObject.relatedTos.Add(id, relationBuilder.Build()); //todo use tryadd method instead??
             return (B)this;
         }
 
         public B WithProdId(string prodId)
         {
-            _jsCalendarObject.prodId = prodId;
+            JsCalendarObject.prodId = prodId;
             return (B)this;
         }
     }

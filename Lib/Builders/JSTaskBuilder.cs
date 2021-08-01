@@ -8,12 +8,12 @@ namespace Lib.Builders
 {
     public class JSTaskBuilder: JSCommonBuilder<JSTask, JSTaskBuilder>
     {
-        protected override JSTask _jsCalendarObject { get; set;  }
+        protected override JSTask JsCalendarObject { get; set;  }
 
 
         public JSTaskBuilder()
         {
-            _jsCalendarObject = new JSTask();
+            JsCalendarObject = new JSTask();
         }
 
 
@@ -21,16 +21,16 @@ namespace Lib.Builders
         {
             var validator = new JSTaskValidator();
 
-            validator.ValidateAndThrow(_jsCalendarObject);
-            return _jsCalendarObject;
+            validator.ValidateAndThrow(JsCalendarObject);
+            return JsCalendarObject;
         }
 
         public async Task<JSTask> BuildAsync()
         {
             var validator = new JSTaskValidator();
 
-            await validator.ValidateAndThrowAsync(_jsCalendarObject);
-            return _jsCalendarObject;
+            await validator.ValidateAndThrowAsync(JsCalendarObject);
+            return JsCalendarObject;
         }
 
     }
