@@ -13,16 +13,16 @@ namespace Lib.Models
     {
         [JsonIgnore]
         public abstract string type { get; }
-        public string? uid { get; internal set; } //todo try change to protected set
+        public string? uid { get; internal set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("relatedTo")]
         public IDictionary<string, Relation>? relatedTos { get; internal set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public string? prodId { get; set; }
+        public string? prodId { get; internal set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public string? created { get; set; }
+        public string? created { get; internal set; }
     }
 
     public class JSCommonValidator : AbstractValidator<JSCommon>

@@ -24,7 +24,6 @@ namespace Lib.Models.DataTypes
         [JsonPropertyName("@type")]
         public string @type { get; } = "Relation";
 
-        public RelationType Thing { get; set; } = RelationType.Next;
         [JsonPropertyName("relation")]
         [JsonConverter(typeof(NonStringKeyDictionaryJsonConverter<RelationType, bool>))]
         public IDictionary<RelationType, bool> relations { get; set; } = new Dictionary<RelationType, bool>();
