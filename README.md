@@ -3,6 +3,8 @@ A fluent .NET implementaiton of the JSCalendar Spec. The spec intends to superse
 
 https://datatracker.ietf.org/doc/html/rfc8984
 
+A brief overview can be found here: https://devguide.calconnect.org/jsCalendar-Topics/introduction/
+
 ## Current state
 This project is in an experimental pre-alpha state.
 
