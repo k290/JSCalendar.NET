@@ -8,7 +8,7 @@ A brief overview can be found here: https://devguide.calconnect.org/jsCalendar-T
 If this project is viable, the goal is to make it sustainable over the long-term. Having more than one maintainer is in encouraged. Contributions from the community is encouraged. I am open to comments, suggestions and criticisms for any aspect of this project.
 
 ## Current state
-This project is in an experimental pre-alpha state.
+This project is in an experimental pre-alpha state. This means it is under initial ideation and development. The current focus is feature-complete serialization to a JSCalendar JSON string. 
 
 ## Sample
 ```
