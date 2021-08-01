@@ -202,14 +202,23 @@ namespace IntegrationTests.Serialization
                 .BuildAsync());
         }
 
+        [Fact]
+        public async Task GivenValidEventBuilder_WithDuplicateRelationsInRelatedTo_ValidationExceptionIsThrown()
+        {
+            await Assert.ThrowsAsync<ValidationException>(
+                async () => await new JSEventBuilder().WithUid("Invalid")
+                .WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent).WithRelation(RelationType.Parent))
+                .BuildAsync());
+        }
+
         #endregion
 
         #region prodId
 
         [Fact]
-        public async Task GivenAValidTaskBuilder_WithOptionalProdId_HasProdIdInResult()
+        public async Task GivenAValidEventBuilder_WithOptionalProdId_HasProdIdInResult()
         {
-            var result = await (await new JSTaskBuilder().WithUid("Valid").WithProdId("A-GUID").BuildAsync()).GetJsonStreamAsync();
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithProdId("A-GUID").BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -223,9 +232,9 @@ namespace IntegrationTests.Serialization
         }
 
         [Fact]
-        public async Task GivenAValidTaskBuilder_WithoutOptionalProdId_NoProdIdInResult()
+        public async Task GivenAValidEventBuilder_WithoutOptionalProdId_NoProdIdInResult()
         {
-            var result = await (await new JSTaskBuilder().WithUid("Valid").BuildAsync()).GetJsonStreamAsync();
+            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true

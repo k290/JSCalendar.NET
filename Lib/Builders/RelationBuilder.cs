@@ -10,22 +10,26 @@ namespace Lib.Builders
 {
     public class RelationBuilder
     {
-        private Relation _relation { get; set; }
+        private Relation Relation { get; set; }
 
         public RelationBuilder()
         {
-            _relation = new Relation();
+            Relation = new Relation();
         }
 
         public RelationBuilder WithRelation(RelationType relationType)
         {
-            _relation.relations.Add(relationType, true);
+            var result = Relation.relations.TryAdd(relationType, true);
+            if (!result)
+            {
+                throw new ValidationException($"Relation must be unique in a RelatedTo. Duplicate value: {relationType}");
+            }
             return this;
         }
 
         public Relation Build()
         {
-            return _relation;
+            return Relation;
         }
 
     }

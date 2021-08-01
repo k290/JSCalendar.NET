@@ -197,11 +197,23 @@ namespace IntegrationTests.Serialization
         public async Task GivenValidTaskBuilder_WithDuplicateRelatedTo_ValidationExceptionIsThrown()
         {
             await Assert.ThrowsAsync<ValidationException>(
-                async () => await new JSGroupBuilder().WithUid("Invalid")
+                async () => await new JSTaskBuilder().WithUid("Invalid")
                 .WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent))
                 .WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Child))
                 .BuildAsync());
         }
+
+        [Fact]
+        public async Task GivenValidTaskBuilder_WithDuplicateRelationsInRelatedTo_ValidationExceptionIsThrown()
+        {
+            await Assert.ThrowsAsync<ValidationException>(
+                async () => await new JSTaskBuilder().WithUid("Invalid")
+                .WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent).WithRelation(RelationType.Parent))
+                .BuildAsync());
+        }
+
+
+
         #endregion
 
         #region prodId
