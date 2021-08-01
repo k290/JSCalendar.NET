@@ -12,13 +12,15 @@ namespace Lib.Models
     public sealed class JSGroup : JSCommon, IParentNode
     {
         [JsonPropertyName("@type")]
-        public override string @type { get; } = "jsgroup";
+        public override string Type { get; } = "jsgroup";
 
 
-        public ICollection<IGroupEntry> entries { get; } = new List<IGroupEntry> { }; // will need to build a proper serializer https://khalidabuhakmeh.com/serialize-interface-instances-system-text-json
+        [JsonPropertyName("entries")]
+        public ICollection<IGroupEntry> Entries { get; } = new List<IGroupEntry> { }; // will need to build a proper serializer https://khalidabuhakmeh.com/serialize-interface-instances-system-text-json
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public string? source { get; internal set; }
+        [JsonPropertyName("source")]
+        public string? Source { get; internal set; }
 
         //todo Move all json getters to parent 
         public string GetJson()
@@ -69,7 +71,7 @@ namespace Lib.Models
     {
         public JSGroupValidator()
         {
-            RuleFor(x => x.source).Must(s => Uri.IsWellFormedUriString(s, UriKind.Absolute)).When(x => x.source != null);
+            RuleFor(x => x.Source).Must(s => Uri.IsWellFormedUriString(s, UriKind.Absolute)).When(x => x.Source != null);
             Include(new JSCommonValidator());
         }
     }

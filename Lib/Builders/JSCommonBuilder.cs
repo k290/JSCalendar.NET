@@ -11,7 +11,7 @@ namespace Lib.Builders
         protected abstract E JsCalendarObject { get; set;  }
         public B WithUid(string uid)
         {
-            JsCalendarObject.uid = uid;
+            JsCalendarObject.Uid = uid;
             return (B)this;
         }
 
@@ -19,11 +19,11 @@ namespace Lib.Builders
         {
             var relationBuilder = new RelationBuilder();
             relationBuilderAction(relationBuilder);
-            if(JsCalendarObject.relatedTos == null)
+            if(JsCalendarObject.RelatedTos == null)
             {
-                JsCalendarObject.relatedTos = new Dictionary<string, Relation>();
+                JsCalendarObject.RelatedTos = new Dictionary<string, Relation>();
             }
-            var result = JsCalendarObject.relatedTos.TryAdd(id, relationBuilder.Build());
+            var result = JsCalendarObject.RelatedTos.TryAdd(id, relationBuilder.Build());
             if (!result)
             {
                 throw new ValidationException($"Related to must have unique ids: {id}");
@@ -33,7 +33,7 @@ namespace Lib.Builders
 
         public B WithProdId(string prodId)
         {
-            JsCalendarObject.prodId = prodId;
+            JsCalendarObject.ProdId = prodId;
             return (B)this;
         }
     }

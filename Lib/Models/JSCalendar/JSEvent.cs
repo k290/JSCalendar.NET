@@ -10,7 +10,7 @@ namespace Lib.Models
     public sealed class JSEvent :  JSCommon, IParentNode, IGroupEntry
     {
         [JsonPropertyName("@type")]
-        public override string @type { get; } = "jsevent";
+        public override string Type { get; } = "jsevent";
 
         public string GetJson()
         {

@@ -20,7 +20,7 @@ namespace Lib.Builders
         {
             var eventBuilder = new JSEventBuilder();
             eventBuilderAction(eventBuilder);
-            JsCalendarObject.entries.Add(eventBuilder.Build());
+            JsCalendarObject.Entries.Add(eventBuilder.Build());
             return this;
         }
 
@@ -28,13 +28,13 @@ namespace Lib.Builders
         {
             var taskBuilder = new JSTaskBuilder();
             taskBuilderAction(taskBuilder);
-            JsCalendarObject.entries.Add(taskBuilder.Build());
+            JsCalendarObject.Entries.Add(taskBuilder.Build());
             return this;
         }
 
         public JSGroupBuilder WithSource(string source)
         {
-            JsCalendarObject.source = source;
+            JsCalendarObject.Source = source;
             return this;
         }
 

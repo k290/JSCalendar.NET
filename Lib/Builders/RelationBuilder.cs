@@ -19,7 +19,7 @@ namespace Lib.Builders
 
         public RelationBuilder WithRelation(RelationType relationType)
         {
-            var result = Relation.relations.TryAdd(relationType, true);
+            var result = Relation.Relations.TryAdd(relationType, true);
             if (!result)
             {
                 throw new ValidationException($"Relation must be unique in a RelatedTo. Duplicate value: {relationType}");

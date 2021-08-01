@@ -22,11 +22,11 @@ namespace Lib.Models.DataTypes
     public class Relation
     {
         [JsonPropertyName("@type")]
-        public string @type { get; } = "Relation";
+        public string Type { get; } = "Relation";
 
         [JsonPropertyName("relation")]
         [JsonConverter(typeof(NonStringKeyDictionaryJsonConverter<RelationType, bool>))]
-        public IDictionary<RelationType, bool> relations { get; set; } = new Dictionary<RelationType, bool>();
+        public IDictionary<RelationType, bool> Relations { get; set; } = new Dictionary<RelationType, bool>();
 
     }
 }

@@ -12,25 +12,28 @@ namespace Lib.Models
     public abstract class JSCommon
     {
         [JsonIgnore]
-        public abstract string type { get; }
-        public string? uid { get; internal set; }
+        public abstract string Type { get; }
+        [JsonPropertyName("uid")]
+        public string? Uid { get; internal set; }
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("relatedTo")]
-        public IDictionary<string, Relation>? relatedTos { get; internal set; }
+        public IDictionary<string, Relation>? RelatedTos { get; internal set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public string? prodId { get; internal set; }
+        [JsonPropertyName("prodId")]
+        public string? ProdId { get; internal set; }
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
-        public string? created { get; internal set; }
+        [JsonPropertyName("created")]
+        public string? Created { get; internal set; }
     }
 
     public class JSCommonValidator : AbstractValidator<JSCommon>
     {
         public JSCommonValidator()
         {
-            RuleFor(e => e.type).NotEmpty();
-            RuleFor(e => e.uid).NotEmpty();
+            RuleFor(e => e.Type).NotEmpty();
+            RuleFor(e => e.Uid).NotEmpty();
         }
     }
 }

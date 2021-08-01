@@ -11,7 +11,7 @@ namespace Lib.Models
     {
 
         [JsonPropertyName("@type")]
-        public override string @type { get; } = "jstask";
+        public override string Type { get; } = "jstask";
 
         public string GetJson()
         {
