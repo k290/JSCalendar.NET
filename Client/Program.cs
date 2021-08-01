@@ -1,4 +1,5 @@
 ﻿using Lib.Builders;
+using Lib.Models.DataTypes;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
@@ -11,8 +12,8 @@ namespace Client
         {
             var builtObject =  await new JSGroupBuilder()
                                  .WithUid("Group01")
-                                 .WithRelatedTo("SomeId", r=>r.WithRelation("parent").WithRelation("child"))
-                                 .WithRelatedTo("SomeOtherId", r=>r.WithRelation("sibling"))
+                                 .WithRelatedTo("SomeId", r=>r.WithRelation(RelationType.Parent).WithRelation(RelationType.Child))
+                                 .WithRelatedTo("SomeOtherId", r=>r.WithRelation(RelationType.Next))
                                  .WithEvent(e => e.WithUid("E1"))
                                  .WithEvent(e => e.WithUid("E2"))
                                  .WithTask(t => t.WithUid("T1"))

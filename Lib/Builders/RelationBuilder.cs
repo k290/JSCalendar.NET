@@ -16,7 +16,7 @@ namespace Lib.Builders
             _relation = new Relation();
         }
 
-        public RelationBuilder WithRelation(string relationType)
+        public RelationBuilder WithRelation(RelationType relationType)
         {
             _relation.relations.Add(relationType, true);
             return this;
