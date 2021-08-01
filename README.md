@@ -1,9 +1,11 @@
 # JSCalendar.NET
-A fluent .NET implementaiton of the JSCalendar Spec. The spec intends to supersede the ical spec. This project aims to provide a sustainable, robust and performant solution to build, serialize and deserialize JSCalendar compliant JSON.  The library encourages strict conformance to the spec. Whenever possible validation exceptions will thrown when non-conformant JSON is serialized or deserialized. We believe in helping developers fall into the pit of success.
+A fluent .NET implementaiton of the JSCalendar spec. The spec intends to supersede the iCal spec. This project aims to provide a sustainable, robust and performant solution to build, serialize and deserialize JSCalendar compliant JSON.  The library encourages strict conformance to the spec. Whenever possible validation exceptions will thrown when non-conformant JSON is serialized or deserialized. We believe in helping developers fall into the pit of success.
 
 https://datatracker.ietf.org/doc/html/rfc8984
 
 A brief overview can be found here: https://devguide.calconnect.org/jsCalendar-Topics/introduction/
+## Vision
+If this project is viable, the goal is to make it sustainable over the long-term. Having more than one maintainer is in encouraged. Contributions from the community is encouraged. I am open to comments, suggestions and criticisms for any aspect of this project.
 
 ## Current state
 This project is in an experimental pre-alpha state.
