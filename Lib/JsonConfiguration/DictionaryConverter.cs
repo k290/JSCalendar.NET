@@ -11,7 +11,7 @@ namespace Lib.JsonConfiguration
 {
     public class NonStringKeyDictionaryJsonConverterFactory : JsonConverterFactory
     {
-        private static Type[] ConvertableTypes = new Type[]
+        private static readonly Type[] ConvertableTypes = new Type[]
         {
         typeof(bool),
         typeof(byte),
@@ -60,9 +60,7 @@ namespace Lib.JsonConfiguration
                 converterType,
                 BindingFlags.Instance | BindingFlags.Public,
                 binder: null,
-                new object[] {
-                    //_converterOptions, _namingPolicy
-                },
+                Array.Empty<object>(), //_converterOptions, _namingPolicy
                 culture: null);
 
             return converter;
