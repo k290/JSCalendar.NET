@@ -1,4 +1,5 @@
-﻿using Lib.Models;
+﻿using FluentValidation;
+using Lib.Models;
 using Lib.Models.DataTypes;
 using System;
 using System.Collections.Generic;
@@ -22,7 +23,11 @@ namespace Lib.Builders
             {
                 JsCalendarObject.relatedTos = new Dictionary<string, Relation>();
             }
-            JsCalendarObject.relatedTos.Add(id, relationBuilder.Build()); //todo use tryadd method instead??
+            var result = JsCalendarObject.relatedTos.TryAdd(id, relationBuilder.Build());
+            if (!result)
+            {
+                throw new ValidationException($"Related to must have unique ids: {id}");
+            }
             return (B)this;
         }
 

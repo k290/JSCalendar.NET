@@ -191,6 +191,17 @@ namespace IntegrationTests.Serialization
                 Assert.Equal(2, subProps.Count());
             }
         }
+
+        [Fact]
+        public async Task GivenValidEventBuilder_WithDuplicateRelatedTo_ValidationExceptionIsThrown()
+        {
+            await Assert.ThrowsAsync<ValidationException>(
+                async () => await new JSEventBuilder().WithUid("Invalid")
+                .WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent))
+                .WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Child))
+                .BuildAsync());
+        }
+
         #endregion
 
         #region prodId

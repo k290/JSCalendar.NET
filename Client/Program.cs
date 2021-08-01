@@ -10,10 +10,10 @@ namespace Client
     {
         static async Task Main()
         {
-            var builtObject =  await new JSGroupBuilder()
+            var builtObject = await new JSGroupBuilder()
                                  .WithUid("Group01")
-                                 .WithRelatedTo("SomeId", r=>r.WithRelation(RelationType.Parent).WithRelation(RelationType.Child))
-                                 .WithRelatedTo("SomeOtherId", r=>r.WithRelation(RelationType.Next))
+                                 .WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent).WithRelation(RelationType.Child))
+                                 .WithRelatedTo("SomeOtherId", r => r.WithRelation(RelationType.Next))
                                  .WithEvent(e => e.WithUid("E1"))
                                  .WithEvent(e => e.WithUid("E2"))
                                  .WithTask(t => t.WithUid("T1"))
