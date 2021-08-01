@@ -3,7 +3,7 @@ A .fluent NET implementaiton of the JSCalendar Spec
 
 https://datatracker.ietf.org/doc/html/rfc8984
 
-#Sample
+# Sample
 ```
             var builtObject = await new JSGroupBuilder()
                                  .WithUid("Group01")
@@ -16,7 +16,7 @@ https://datatracker.ietf.org/doc/html/rfc8984
 
             var result = await builtObject.GetJsonAsync();
 ```
-#License
+# License
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
 This work is licensed under a
