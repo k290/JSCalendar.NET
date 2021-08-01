@@ -1,10 +1,10 @@
 # JSCalendar.NET
-A .fluent NET implementaiton of the JSCalendar Spec
+A fluent .NET implementaiton of the JSCalendar Spec. The spec intends to supersede the ical spec. This project aims to provide a sustainable, robust and performant solution to build, serialize and deserialize JSCalendar compliant JSON.  
 
 https://datatracker.ietf.org/doc/html/rfc8984
 
 ## Current state
-This project is in pre-alpha, and under active development and user research.
+This project is in an experimental pre-alpha state.
 
 ## Sample
 ```
@@ -20,6 +20,7 @@ This project is in pre-alpha, and under active development and user research.
             var result = await builtObject.GetJsonAsync();
 ```
 # License
+
 [![CC BY-NC-SA 4.0][cc-by-nc-sa-shield]][cc-by-nc-sa]
 
 This work is licensed under a
