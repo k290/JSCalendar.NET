@@ -1,15 +1,11 @@
 ﻿using Lib.Models;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
-using System.Threading.Tasks;
 
 namespace Lib.JsonConfiguration
 {
-    public class ParentNodeConverter : JsonConverter<JSCommon>
+    public class JsCommonConverter : JsonConverter<JSCommon>
     {
         public override JSCommon Read(
             ref Utf8JsonReader reader,
