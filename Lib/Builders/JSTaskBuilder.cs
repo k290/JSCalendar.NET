@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lib.Builders
 {
-    public class JSTaskBuilder: JSCommonBuilder<JSTask, JSTaskBuilder>
+    public class JSTaskBuilder: JSCommonBuilder<JSTask, JSTaskBuilder, JSTaskValidator>
     {
         protected override JSTask JsCalendarObject { get; set;  }
 
@@ -15,23 +15,5 @@ namespace Lib.Builders
         {
             JsCalendarObject = new JSTask();
         }
-
-
-        public JSTask Build()
-        {
-            var validator = new JSTaskValidator();
-
-            validator.ValidateAndThrow(JsCalendarObject);
-            return JsCalendarObject;
-        }
-
-        public async Task<JSTask> BuildAsync()
-        {
-            var validator = new JSTaskValidator();
-
-            await validator.ValidateAndThrowAsync(JsCalendarObject);
-            return JsCalendarObject;
-        }
-
     }
 }

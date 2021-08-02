@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Lib.Builders
 {
-    public class JSGroupBuilder: JSCommonBuilder<JSGroup, JSGroupBuilder>
+    public class JSGroupBuilder: JSCommonBuilder<JSGroup, JSGroupBuilder, JSGroupValidator>
     {
         protected override JSGroup JsCalendarObject { get ; set; }
 
@@ -36,23 +36,6 @@ namespace Lib.Builders
         {
             JsCalendarObject.Source = source;
             return this;
-        }
-
-        public JSGroup Build()
-        {
-            var validator = new JSGroupValidator();
-
-            validator.ValidateAndThrow(JsCalendarObject);
-            return JsCalendarObject;
-        }
-
-        public async Task<JSGroup> BuildAsync()
-        {
-            var validator = new JSGroupValidator();
-
-            await validator.ValidateAndThrowAsync(JsCalendarObject);
-
-            return JsCalendarObject;
         }
     }
 }

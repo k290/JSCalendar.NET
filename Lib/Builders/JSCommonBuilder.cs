@@ -3,10 +3,11 @@ using Lib.Models;
 using Lib.Models.DataTypes;
 using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace Lib.Builders
 {
-    public abstract class JSCommonBuilder<E, B> where B: JSCommonBuilder<E, B> where E : JSCommon
+    public abstract class JSCommonBuilder<E, B, V> where B: JSCommonBuilder<E, B, V> where E : JSCommon where V: AbstractValidator<E>, new()
     {
         protected abstract E JsCalendarObject { get; set;  }
         public B WithUid(string uid)
@@ -47,6 +48,23 @@ namespace Lib.Builders
         {
             JsCalendarObject.Created = createDate;
             return (B)this;
+        }
+        public E Build()
+        {
+            var validator = new V();
+
+            validator.ValidateAndThrow(JsCalendarObject);
+
+            return JsCalendarObject;
+        }
+
+        public async Task<E> BuildAsync()
+        {
+            var validator = new V();
+
+            await validator.ValidateAndThrowAsync(JsCalendarObject);
+
+            return JsCalendarObject;
         }
 
 
