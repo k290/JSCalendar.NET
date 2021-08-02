@@ -15,7 +15,7 @@ namespace Lib.Models
 
     //todo think about using composition with the common ones. Testing is becoming repetitive
 
-    [JsonAbstractClassConverter(typeof(JsCommonConverter))]
+    [AbstractClassConverter(typeof(JsCommonConverter))]
     public abstract class JSCommon
     {
         [JsonIgnore]

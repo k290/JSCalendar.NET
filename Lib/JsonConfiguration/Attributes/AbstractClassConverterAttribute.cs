@@ -4,9 +4,9 @@ using System.Text.Json.Serialization;
 namespace Lib.JsonConfiguration
 {
     [AttributeUsage(AttributeTargets.Class, AllowMultiple = false)]
-	public class JsonAbstractClassConverterAttribute : JsonConverterAttribute
+	public class AbstractClassConverterAttribute : JsonConverterAttribute
 	{
-		public JsonAbstractClassConverterAttribute(Type converterType)
+		public AbstractClassConverterAttribute(Type converterType)
 			: base(converterType)
 		{
 		}
