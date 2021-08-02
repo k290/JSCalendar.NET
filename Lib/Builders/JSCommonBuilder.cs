@@ -36,5 +36,19 @@ namespace Lib.Builders
             JsCalendarObject.ProdId = prodId;
             return (B)this;
         }
+
+        public B WithUpdateDate(DateTime updateDate)
+        {
+            JsCalendarObject.Updated = updateDate;
+            return (B)this;
+        }
+
+        public B WithCreateDate(DateTime createDate)
+        {
+            JsCalendarObject.Created = createDate;
+            return (B)this;
+        }
+
+
     }
 }

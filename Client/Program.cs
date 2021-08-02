@@ -12,11 +12,13 @@ namespace Client
         {
             var builtObject = await new JSGroupBuilder()
                                  .WithUid("group01")
+                                 .WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 0,  DateTimeKind.Utc))
+                                 .WithCreateDate(new DateTime(2021, 01, 01, 11, 20, 5, 120, DateTimeKind.Utc))
                                  .WithRelatedTo("someId", r => r.WithRelation(RelationType.Parent).WithRelation(RelationType.Child))
                                  .WithRelatedTo("someOtherId", r => r.WithRelation(RelationType.Next))
-                                 .WithEvent(e => e.WithUid("e1"))
-                                 .WithEvent(e => e.WithUid("e2"))
-                                 .WithTask(t => t.WithUid("t1"))
+                                 .WithEvent(e => e.WithUid("e1").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 0, DateTimeKind.Utc)))
+                                 .WithEvent(e => e.WithUid("e2").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 700, DateTimeKind.Utc)))
+                                 .WithTask(t => t.WithUid("t1").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 77, DateTimeKind.Utc)))
                           .BuildAsync();
 
             var result = await builtObject.GetJsonAsync();

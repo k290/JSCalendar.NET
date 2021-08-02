@@ -12,6 +12,12 @@ namespace IntegrationTests.Serialization
 {
     public class EventBuilderTests
     {
+
+        private JSEventBuilder GetValidBuilder()
+        {
+            return new JSEventBuilder().WithUid("Valid").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc));
+        }
+
         #region uid
         [Fact]
         public async Task GivenAnEventBuilderWithNoUID_ItThrowsValidationException()
@@ -30,7 +36,7 @@ namespace IntegrationTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_HasUidInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonStreamAsync();
+            var result = await (await GetValidBuilder().BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -42,11 +48,106 @@ namespace IntegrationTests.Serialization
         }
         #endregion
 
+
+        #region updated
+        [Fact]
+        public async Task GivenAnEventBuilderWithNoUpdateDate_ItThrowsValidationException()
+        {
+
+            await Assert.ThrowsAsync<ValidationException>(async () => await new JSEventBuilder().WithUid("Invalid").BuildAsync());
+        }
+
+        [Fact]
+        public async Task GivenAnEventBuilderWithNonUtcUpdateDate_ItThrowsValidationException()
+        {
+
+            await Assert.ThrowsAsync<ValidationException>(async () => await new JSEventBuilder().WithUid("Invalid").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 0)).BuildAsync());
+        }
+
+        [Fact]
+        public async Task GivenAnEventBuilderWithUpdateDate_HasUpdateDateInResultWithoutTrailingZerosInFraction()
+        {
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc)).BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("updated");
+            Assert.Equal("2021-02-01T11:20:05.1Z", prop.GetString());
+        }
+
+        [Fact]
+        public async Task GivenAnEventBuilderWithUpdateDateZeroMillis_HasNoMillisInResult()
+        {
+            var result = await (await new JSEventBuilder().WithUid("Valid").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 0, DateTimeKind.Utc)).BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("updated");
+            Assert.Equal("2021-02-01T11:20:05Z", prop.GetString());
+        }
+        #endregion
+
+        #region created
+        [Fact]
+        public async Task GivenAnEventBuilderWithNonUtcCreateDate_ItThrowsValidationException()
+        {
+
+            await Assert.ThrowsAsync<ValidationException>(async () => await new JSEventBuilder().WithUid("Invalid").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 0, DateTimeKind.Utc)).WithCreateDate(new DateTime(2021, 02, 01, 11, 20, 5, 0)).BuildAsync());
+        }
+
+        [Fact]
+        public async Task GivenAValidEventBuilderWithCreateDate_HasCreateDateInResultWithoutTrailingZerosInFraction()
+        {
+            var result = await (await GetValidBuilder().WithCreateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc)).BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("created");
+            Assert.Equal("2021-02-01T11:20:05.1Z", prop.GetString());
+        }
+
+        [Fact]
+        public async Task GivenAnEventBuilderWithCreateDateZeroMillis_HasNoMillisInResult()
+        {
+            var result = await (await GetValidBuilder().WithCreateDate(new DateTime(2021, 02, 01, 11, 20, 5, 0, DateTimeKind.Utc)).BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("created");
+            Assert.Equal("2021-02-01T11:20:05Z", prop.GetString());
+        }
+
+        [Fact]
+        public async Task GivenAValidEventBuilderWithoutOptionalCreated_CreatedNotInResult()
+        {
+            var result = await (await GetValidBuilder().BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("created"));
+        }
+        #endregion
+
         #region type
         [Fact]
         public async Task GivenAValidEventBuilder_HasTypeInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonStreamAsync();
+            var result = await (await GetValidBuilder().BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -62,7 +163,7 @@ namespace IntegrationTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilderWithoutOptionalRelatedTo_RelatedToNotInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonStreamAsync();
+            var result = await (await GetValidBuilder().BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -75,7 +176,7 @@ namespace IntegrationTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithValidOptionalRelatedTo_RelatedToInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonStreamAsync();
+            var result = await (await GetValidBuilder().WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -90,7 +191,7 @@ namespace IntegrationTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithMultipleOptionalRelatedTo_BothRelatedToInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).WithRelatedTo("SomeId2", r => { }).BuildAsync()).GetJsonStreamAsync();
+            var result = await (await GetValidBuilder().WithRelatedTo("SomeId", r => { }).WithRelatedTo("SomeId2", r => { }).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -105,7 +206,7 @@ namespace IntegrationTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithValidOptionalRelatedTo_RelatedToHasType()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonStreamAsync();
+            var result = await (await GetValidBuilder().WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -121,7 +222,7 @@ namespace IntegrationTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithEmptyRelationsInRelatedTo_EmptyObjectInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonStreamAsync();
+            var result = await (await GetValidBuilder().WithRelatedTo("SomeId", r => { }).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -139,7 +240,7 @@ namespace IntegrationTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithRelationsInRelatedTo_RelationsExist()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent)).BuildAsync()).GetJsonStreamAsync();
+            var result = await (await GetValidBuilder().WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent)).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -156,7 +257,7 @@ namespace IntegrationTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithMultipleRelationsInRelatedTo_BothRelationsExist()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent).WithRelation(RelationType.Child)).BuildAsync()).GetJsonStreamAsync();
+            var result = await (await GetValidBuilder().WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent).WithRelation(RelationType.Child)).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -174,7 +275,7 @@ namespace IntegrationTests.Serialization
         public async Task GivenValidEventBuilder_WithDuplicateRelatedTo_ValidationExceptionIsThrown()
         {
             await Assert.ThrowsAsync<ValidationException>(
-                async () => await new JSEventBuilder().WithUid("Invalid")
+                async () => await GetValidBuilder()
                 .WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent))
                 .WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Child))
                 .BuildAsync());
@@ -184,7 +285,7 @@ namespace IntegrationTests.Serialization
         public async Task GivenValidEventBuilder_WithDuplicateRelationsInRelatedTo_ValidationExceptionIsThrown()
         {
             await Assert.ThrowsAsync<ValidationException>(
-                async () => await new JSEventBuilder().WithUid("Invalid")
+                async () => await GetValidBuilder()
                 .WithRelatedTo("SomeId", r => r.WithRelation(RelationType.Parent).WithRelation(RelationType.Parent))
                 .BuildAsync());
         }
@@ -196,7 +297,7 @@ namespace IntegrationTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithOptionalProdId_HasProdIdInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").WithProdId("A-GUID").BuildAsync()).GetJsonStreamAsync();
+            var result = await (await GetValidBuilder().WithProdId("A-GUID").BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
@@ -210,7 +311,7 @@ namespace IntegrationTests.Serialization
         [Fact]
         public async Task GivenAValidEventBuilder_WithoutOptionalProdId_NoProdIdInResult()
         {
-            var result = await (await new JSEventBuilder().WithUid("Valid").BuildAsync()).GetJsonStreamAsync();
+            var result = await (await GetValidBuilder().BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true

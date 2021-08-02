@@ -25,7 +25,10 @@ namespace Lib.Models
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("created")]
-        public string? Created { get; internal set; }
+        public DateTime? Created { get; internal set; }
+
+        [JsonPropertyName("updated")]
+        public DateTime Updated { get; internal set; }
     }
 
     public class JSCommonValidator : AbstractValidator<JSCommon>
@@ -34,6 +37,9 @@ namespace Lib.Models
         {
             RuleFor(e => e.Type).NotEmpty();
             RuleFor(e => e.Uid).NotEmpty();
+            RuleFor(e => e.Updated).NotEmpty()
+                .Must((context, date) => date.Kind == DateTimeKind.Utc).WithMessage("DateTime Kind for updated must be UTC");
+            RuleFor(e => e.Created).Must((context, date) => date is null || date?.Kind == DateTimeKind.Utc).WithMessage("DateTime Kind for created must be UTC");
         }
     }
 }
