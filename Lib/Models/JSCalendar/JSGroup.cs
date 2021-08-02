@@ -22,16 +22,11 @@ namespace Lib.Models
         [JsonPropertyName("source")]
         public string? Source { get; internal set; }
 
-        //todo Move all json getters to parent 
         public string GetJson()
         {
             return JsonSerializer.Serialize(this, new JsonSerializerOptions
             {
                 WriteIndented = true,
-                Converters =
-                {
-                    new JsonStringEnumMemberConverter()
-                }
             });
         }
 
@@ -41,10 +36,6 @@ namespace Lib.Models
             await JsonSerializer.SerializeAsync(stream, this, new JsonSerializerOptions
             {
                 WriteIndented = true,
-                Converters =
-                {
-                    new JsonStringEnumMemberConverter()
-                }
             });
             stream.Position = 0;
             using var reader = new StreamReader(stream);
@@ -54,12 +45,9 @@ namespace Lib.Models
         public async Task<MemoryStream> GetJsonStreamAsync()
         {
             var stream = new MemoryStream();
-            await JsonSerializer.SerializeAsync(stream, this, new JsonSerializerOptions { WriteIndented = true,
-                Converters =
-                {
-                    new JsonStringEnumMemberConverter()
-                }
-
+            await JsonSerializer.SerializeAsync(stream, this, new JsonSerializerOptions
+            {
+                WriteIndented = true
             });
             stream.Position = 0;
             return stream;
