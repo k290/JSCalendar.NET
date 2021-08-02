@@ -2,10 +2,8 @@
 using Lib.Models.DataTypes;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Text;
-using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
@@ -33,27 +31,6 @@ namespace Lib.Models
 
         [JsonPropertyName("updated")]
         public DateTime Updated { get; internal set; }
-
-        public string GetJson()
-        {
-            return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
-        }
-        public async Task<string> GetJsonAsync()
-        {
-            using var stream = new MemoryStream();
-            await JsonSerializer.SerializeAsync(stream, GetType(), new JsonSerializerOptions { WriteIndented = true });
-            stream.Position = 0;
-            using var reader = new StreamReader(stream);
-            return await reader.ReadToEndAsync();
-        }
-
-        public async Task<MemoryStream> GetJsonStreamAsync()
-        {
-            var stream = new MemoryStream();
-            await JsonSerializer.SerializeAsync(stream, GetType(), new JsonSerializerOptions { WriteIndented = true });
-            stream.Position = 0;
-            return stream;
-        }
     }
 
     public class JSCommonValidator : AbstractValidator<JSCommon>
