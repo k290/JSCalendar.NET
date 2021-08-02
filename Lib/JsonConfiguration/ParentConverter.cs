@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Lib.JsonConfiguration
 {
-    public class ParentNodeConverter : JsonConverter<IParentNode>
+    public class ParentNodeConverter : JsonConverter<JSCommon>
     {
-        public override IParentNode Read(
+        public override JSCommon Read(
             ref Utf8JsonReader reader,
             Type typeToConvert,
             JsonSerializerOptions options)
@@ -21,13 +21,13 @@ namespace Lib.JsonConfiguration
 
         public override void Write(
             Utf8JsonWriter writer,
-            IParentNode value,
+            JSCommon value,
             JsonSerializerOptions options)
         {
             switch (value)
             {
                 case null:
-                    JsonSerializer.Serialize(writer, (IParentNode?)null, options);
+                    JsonSerializer.Serialize(writer, (JSCommon?)null, options);
                     break;
                 default:
                     {

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Lib.Models
 {
-    public sealed class JSTask : JSCommon, IParentNode, IGroupEntry
+    public sealed class JSTask : JSCommon, IGroupEntry
     {
 
         [JsonPropertyName("@type")]

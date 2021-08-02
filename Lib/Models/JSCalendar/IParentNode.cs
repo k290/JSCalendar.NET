@@ -8,8 +8,4 @@ using System.Threading.Tasks;
 
 namespace Lib.Models
 {
-    [JsonInterfaceConverter(typeof(ParentNodeConverter))]
-    public interface IParentNode
-    {
-    }
 }
