@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 namespace Lib.Models
 {
 
-    //todo think about using composition with the common ones. Testing is becoming repetitive
 
     [AbstractClassConverter(typeof(JsCommonConverter))]
     public abstract class JSCommon
