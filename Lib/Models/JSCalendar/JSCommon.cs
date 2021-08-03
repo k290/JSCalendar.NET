@@ -43,6 +43,9 @@ namespace Lib.Models
         [JsonPropertyName("method")]
         public MethodType? Method { get; internal set; }
 
+        [JsonPropertyName("title")]
+        public string Title { get; internal set; } = string.Empty;
+
         public string GetJson()
         {
             return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });

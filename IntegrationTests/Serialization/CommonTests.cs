@@ -394,5 +394,36 @@ namespace IntegrationTests.Serialization
             Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("method"));
         }
         #endregion
+
+        #region title
+
+        [Fact]
+        public async Task GivenAValidTestBuilder_WithTitle_HasTitleInResult()
+        {
+            var result = await (await GetValidBuilder().WithTitle("TestTitle").BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("title");
+            Assert.Equal("TestTitle", prop.GetString());
+        }
+
+        [Fact]
+        public async Task GivenAValidTestBuilder_WithoutOptionalProdId_EmptyTitleInResult()
+        {
+            var result = await (await GetValidBuilder().BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("title");
+            Assert.Equal(string.Empty, prop.GetString());
+        }
+        #endregion
     }
 }
