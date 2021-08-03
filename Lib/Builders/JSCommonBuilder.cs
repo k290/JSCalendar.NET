@@ -80,6 +80,7 @@ namespace Lib.Builders
         //It will take a long time to build out a properly conformant library of enums and allowed params
         //We should store it as this combination (or some kind of value type) and then it knows how to validate it when serializing
         //This will also make deserializing better - can define a custom deserializeer.
+        //todo above
         public B WithDescriptionContentType(string textContentType, IDictionary<string, string> parameters)
         {
             var stringBuilder = new StringBuilder();
