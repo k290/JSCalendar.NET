@@ -168,7 +168,6 @@ namespace IntegrationTests.Serialization
             Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("created"));
         }
 
-        //todo create date not supplied
         #endregion
 
         #region type
