@@ -425,5 +425,36 @@ namespace IntegrationTests.Serialization
             Assert.Equal(string.Empty, prop.GetString());
         }
         #endregion
+
+        #region description
+
+        [Fact]
+        public async Task GivenAValidTestBuilder_WithDescription_HasDescriptionInResult()
+        {
+            var result = await (await GetValidBuilder().WithDescription("TestDescription").BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("description");
+            Assert.Equal("TestDescription", prop.GetString());
+        }
+
+        [Fact]
+        public async Task GivenAValidTestBuilder_WithoutOptionalProdId_EmptyDescriptionInResult()
+        {
+            var result = await (await GetValidBuilder().BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("description");
+            Assert.Equal(string.Empty, prop.GetString());
+        }
+        #endregion
     }
 }

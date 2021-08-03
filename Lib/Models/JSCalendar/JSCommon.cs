@@ -46,6 +46,9 @@ namespace Lib.Models
         [JsonPropertyName("title")]
         public string Title { get; internal set; } = string.Empty;
 
+        [JsonPropertyName("description")]
+        public string Description { get; internal set; } = string.Empty;
+
         public string GetJson()
         {
             return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });

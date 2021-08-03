@@ -67,6 +67,12 @@ namespace Lib.Builders
             JsCalendarObject.Title = title;
             return (B)this;
         }
+
+        public B WithDescription(string description)
+        {
+            JsCalendarObject.Description = description;
+            return (B)this;
+        }
         public E Build()
         {
             var validator = new V();
