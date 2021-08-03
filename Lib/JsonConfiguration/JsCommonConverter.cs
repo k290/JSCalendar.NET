@@ -23,7 +23,7 @@ namespace Lib.JsonConfiguration
             switch (value)
             {
                 case null:
-                    JsonSerializer.Serialize(writer, (JSCommon?)null, options);
+                    JsonSerializer.Serialize(writer, value, options);//can pass in value here instead of casting null
                     break;
                 default:
                     {

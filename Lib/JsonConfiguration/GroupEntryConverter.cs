@@ -27,7 +27,7 @@ namespace Lib.JsonConfiguration
             switch (value)
             {
                 case null:
-                    JsonSerializer.Serialize(writer, (IGroupEntry?)null, options);
+                    JsonSerializer.Serialize(writer, value, options);
                     break;
                 default:
                     {
