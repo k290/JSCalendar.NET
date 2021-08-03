@@ -49,6 +49,12 @@ namespace Lib.Builders
             JsCalendarObject.Created = createDate;
             return (B)this;
         }
+
+        public B WithSequence(uint sequence)
+        {
+            JsCalendarObject.Sequence = sequence;
+            return (B)this;
+        }
         public E Build()
         {
             var validator = new V();

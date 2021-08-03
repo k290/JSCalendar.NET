@@ -36,6 +36,9 @@ namespace Lib.Models
         [JsonPropertyName("updated")]
         public DateTime Updated { get; internal set; }
 
+        [JsonPropertyName("sequence")]
+        public uint Sequence { get; internal set; } = 0;
+
         public string GetJson()
         {
             return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });

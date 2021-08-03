@@ -170,22 +170,6 @@ namespace IntegrationTests.Serialization
 
         #endregion
 
-        #region type
-        [Fact]
-        public async Task GivenAValidTestBuilder_HasTypeInResult()
-        {
-            var result = await (await GetValidBuilder().BuildAsync()).GetJsonStreamAsync();
-            var options = new JsonDocumentOptions
-            {
-                AllowTrailingCommas = true
-            };
-            using var document = await JsonDocument.ParseAsync(result, options);
-            var rootElement = document.RootElement;
-            var prop = rootElement.GetProperty("@type");
-            Assert.Equal("common-test", prop.GetString());
-        }
-        #endregion
-
         #region relatedTo
         [Fact]
         public async Task GivenAValidTestBuilderWithoutOptionalRelatedTo_RelatedToNotInResult()
@@ -347,6 +331,38 @@ namespace IntegrationTests.Serialization
             var rootElement = document.RootElement;
             Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("prodId"));
         }
+        #endregion
+
+        #region sequence
+        [Fact]
+        public async Task GivenAnTestBuilderWithoutSequence_HasSequenceInResultWithDefaultZero()
+        {
+            var result = await (await GetValidBuilder().BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("sequence");
+            Assert.Equal<uint>(0, prop.GetUInt32());
+        }
+
+        [Fact]
+        public async Task GivenAnTestBuilderWithSequence_HasSequenceInResulto()
+        {
+            var result = await (await GetValidBuilder().WithSequence(2).BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("sequence");
+            Assert.Equal<uint>(2, prop.GetUInt32());
+        }
+
+
         #endregion
     }
 }
