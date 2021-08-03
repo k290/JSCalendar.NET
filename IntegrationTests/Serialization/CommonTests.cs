@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -15,6 +16,7 @@ namespace IntegrationTests.Serialization
 
     public sealed class JSCommonTest : JSCommon
     {
+        [JsonPropertyName("@type")]
         public override string Type => "common-test";
     }
 
@@ -37,7 +39,7 @@ namespace IntegrationTests.Serialization
     }
     public class CommonTests
     {
-        private JSCommonTestBuilder GetValidBuilder()
+        private static JSCommonTestBuilder GetValidBuilder()
         {
             return new JSCommonTestBuilder().WithUid("Valid").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc));
         }
@@ -165,6 +167,8 @@ namespace IntegrationTests.Serialization
             var rootElement = document.RootElement;
             Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("created"));
         }
+
+        //todo create date not supplied
         #endregion
 
         #region type

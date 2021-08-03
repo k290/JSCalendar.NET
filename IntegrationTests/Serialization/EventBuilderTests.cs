@@ -13,7 +13,7 @@ namespace IntegrationTests.Serialization
     public class EventBuilderTests
     {
 
-        private JSEventBuilder GetValidBuilder()
+        private static JSEventBuilder GetValidBuilder()
         {
             return new JSEventBuilder().WithUid("Valid").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc));
         }

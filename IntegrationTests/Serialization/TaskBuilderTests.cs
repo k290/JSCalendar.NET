@@ -13,7 +13,7 @@ namespace IntegrationTests.Serialization
     public class TaskBuilderTests
     {
 
-        private JSTaskBuilder GetValidBuilder()
+        private static JSTaskBuilder GetValidBuilder()
         {
             return new JSTaskBuilder().WithUid("Valid").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc));
         }

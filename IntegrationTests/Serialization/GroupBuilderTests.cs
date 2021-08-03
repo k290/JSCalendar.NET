@@ -14,17 +14,17 @@ namespace IntegrationTests.Serialization
 
     public class GroupBuilderTests
     {
-        private JSGroupBuilder GetValidBuilder()
+        private static JSGroupBuilder GetValidBuilder()
         {
             return new JSGroupBuilder().WithUid("Valid").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc));
         }
 
-        private void SetValidEventBuilder(JSEventBuilder eventBuilder, string Uid)
+        private static void SetValidEventBuilder(JSEventBuilder eventBuilder, string Uid)
         {
             eventBuilder.WithUid(Uid).WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc));
         }
 
-        private void SetValidTaskBuilder(JSTaskBuilder taskBuilder)
+        private static void SetValidTaskBuilder(JSTaskBuilder taskBuilder)
         {
             taskBuilder.WithUid("Valid").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc));
         }
@@ -45,8 +45,6 @@ namespace IntegrationTests.Serialization
             var prop = rootElement.GetProperty("@type");
             Assert.Equal("jsgroup", prop.GetString());
         }
-
-        //todo create date not supplied
 
         #endregion
 
