@@ -10,7 +10,6 @@ namespace Lib.Models
 {
     public sealed class JSEvent :  JSCommon, IGroupEntry
     {
-        [JsonPropertyName("@type")]
         public override string Type { get; } = "jsevent";
 
     }

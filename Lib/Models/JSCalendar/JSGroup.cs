@@ -11,7 +11,6 @@ namespace Lib.Models
 {
     public sealed class JSGroup : JSCommon
     {
-        [JsonPropertyName("@type")]
         public override string Type { get; } = "jsgroup";
 
 

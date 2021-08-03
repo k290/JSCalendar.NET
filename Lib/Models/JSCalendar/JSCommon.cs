@@ -15,7 +15,7 @@ namespace Lib.Models
     [AbstractClassConverter(typeof(JsCommonConverter))]
     public abstract class JSCommon
     {
-        [JsonIgnore]
+        [JsonPropertyName("@type")]
         public abstract string Type { get; }
         [JsonPropertyName("uid")]
         public string? Uid { get; internal set; }

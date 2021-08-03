@@ -10,7 +10,6 @@ namespace Lib.Models
     public sealed class JSTask : JSCommon, IGroupEntry
     {
 
-        [JsonPropertyName("@type")]
         public override string Type { get; } = "jstask";
 
       

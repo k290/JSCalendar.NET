@@ -16,7 +16,6 @@ namespace IntegrationTests.Serialization
 
     public sealed class JSCommonTest : JSCommon
     {
-        [JsonPropertyName("@type")]
         public override string Type => "common-test";
     }
 
