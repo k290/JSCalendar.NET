@@ -55,6 +55,12 @@ namespace Lib.Builders
             JsCalendarObject.Sequence = sequence;
             return (B)this;
         }
+
+        public B WithMethod(MethodType method)
+        {
+            JsCalendarObject.Method = method;
+            return (B)this;
+        }
         public E Build()
         {
             var validator = new V();

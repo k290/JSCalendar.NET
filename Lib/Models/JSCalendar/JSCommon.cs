@@ -39,6 +39,10 @@ namespace Lib.Models
         [JsonPropertyName("sequence")]
         public uint Sequence { get; internal set; } = 0;
 
+        [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
+        [JsonPropertyName("method")]
+        public MethodType? Method { get; internal set; }
+
         public string GetJson()
         {
             return JsonSerializer.Serialize(this, new JsonSerializerOptions { WriteIndented = true });
@@ -72,6 +76,7 @@ namespace Lib.Models
             RuleFor(e => e.Updated).NotEmpty()
                 .Must((context, date) => date.Kind == DateTimeKind.Utc).WithMessage("DateTime Kind for updated must be UTC");
             RuleFor(e => e.Created).Must((context, date) => date is null || date?.Kind == DateTimeKind.Utc).WithMessage("DateTime Kind for created must be UTC");
+
         }
     }
 }

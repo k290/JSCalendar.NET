@@ -364,5 +364,35 @@ namespace IntegrationTests.Serialization
 
 
         #endregion
+
+        #region method
+
+        [Fact]
+        public async Task GivenAValidTestBuilder_WithOptionalMethod_HasMethodInResult()
+        {
+            var result = await (await GetValidBuilder().WithMethod(MethodType.DeclineCounter).BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            var prop = rootElement.GetProperty("method");
+            Assert.Equal("declinecounter", prop.GetString());
+        }
+
+        [Fact]
+        public async Task GivenAValidTestBuilder_WithoutOptionalMethod_NoMethodInResult()
+        {
+            var result = await (await GetValidBuilder().BuildAsync()).GetJsonStreamAsync();
+            var options = new JsonDocumentOptions
+            {
+                AllowTrailingCommas = true
+            };
+            using var document = await JsonDocument.ParseAsync(result, options);
+            var rootElement = document.RootElement;
+            Assert.Throws<KeyNotFoundException>(() => rootElement.GetProperty("method"));
+        }
+        #endregion
     }
 }

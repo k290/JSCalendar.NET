@@ -13,6 +13,7 @@ namespace Client
             var builtObject = await new JSGroupBuilder()
                                  .WithUid("group01")
                                  .WithSequence(1)
+                                 .WithMethod(MethodType.Publish)
                                  .WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 0,  DateTimeKind.Utc))
                                  .WithCreateDate(new DateTime(2021, 01, 01, 11, 20, 5, 120, DateTimeKind.Utc))
                                  .WithRelatedTo("someId", r => r.WithRelation(RelationType.Parent).WithRelation(RelationType.Child))
