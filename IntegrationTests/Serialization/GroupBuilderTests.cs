@@ -19,14 +19,14 @@ namespace IntegrationTests.Serialization
             return new JSGroupBuilder().WithUid("Valid").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc));
         }
 
-        private static void SetValidEventBuilder(JSEventBuilder eventBuilder, string Uid)
+        private static void SetValidEventBuilder(JSEventBuilder eventBuilder, string uid)
         {
-            eventBuilder.WithUid(Uid).WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc));
+            eventBuilder.WithUid(uid).WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc));
         }
 
-        private static void SetValidTaskBuilder(JSTaskBuilder taskBuilder)
+        private static void SetValidTaskBuilder(JSTaskBuilder taskBuilder, string uid)
         {
-            taskBuilder.WithUid("Valid").WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc));
+            taskBuilder.WithUid(uid).WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 100, DateTimeKind.Utc));
         }
 
 
@@ -94,7 +94,7 @@ namespace IntegrationTests.Serialization
         }
 
         [Fact]
-        public async Task GivenAValidGroupBuilderWith1Entries_HasPopulatedArraySize1()
+        public async Task GivenAValidGroupBuilderWith1Entries_HasEventInPopulatedArray()
         {
             var result = await (await GetValidBuilder().WithEvent(e => SetValidEventBuilder(e, "Event1")).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
@@ -103,8 +103,9 @@ namespace IntegrationTests.Serialization
             };
             using var document = await JsonDocument.ParseAsync(result, options);
             var rootElement = document.RootElement;
-            var prop = rootElement.GetProperty("entries");
-            Assert.Equal(1, prop.GetArrayLength());
+            var entries = rootElement.GetProperty("entries").EnumerateArray();
+            var uid = entries.ElementAt(0).GetProperty("uid");
+            Assert.Equal("Event1", uid.GetString());
         }
 
         [Fact]
@@ -117,22 +118,28 @@ namespace IntegrationTests.Serialization
             };
             using var document = await JsonDocument.ParseAsync(result, options);
             var rootElement = document.RootElement;
-            var prop = rootElement.GetProperty("entries");
-            Assert.Equal(2, prop.GetArrayLength());
+            var entries = rootElement.GetProperty("entries").EnumerateArray();
+            var event1 = entries.ElementAt(0).GetProperty("uid");
+            var event2 = entries.ElementAt(1).GetProperty("uid");
+            Assert.Equal("Event1", event1.GetString());
+            Assert.Equal("Event2", event2.GetString());
         }
 
         [Fact]
         public async Task GivenAValidGroupBuilderWithTwoOfDifferentEntries_HasPopulatedArraySize2()
         {
-            var result = await (await GetValidBuilder().WithEvent(e => SetValidEventBuilder(e, "Event1")).WithTask(t => SetValidTaskBuilder(t)).BuildAsync()).GetJsonStreamAsync();
+            var result = await (await GetValidBuilder().WithEvent(e => SetValidEventBuilder(e, "Event1")).WithTask(t => SetValidTaskBuilder(t, "Task1")).BuildAsync()).GetJsonStreamAsync();
             var options = new JsonDocumentOptions
             {
                 AllowTrailingCommas = true
             };
             using var document = await JsonDocument.ParseAsync(result, options);
             var rootElement = document.RootElement;
-            var prop = rootElement.GetProperty("entries");
-            Assert.Equal(2, prop.GetArrayLength());
+            var entries = rootElement.GetProperty("entries").EnumerateArray();
+            var event1 = entries.ElementAt(0).GetProperty("uid");
+            var event2 = entries.ElementAt(1).GetProperty("uid");
+            Assert.Equal("Event1", event1.GetString());
+            Assert.Equal("Task1", event2.GetString());
         }
 
         #endregion
