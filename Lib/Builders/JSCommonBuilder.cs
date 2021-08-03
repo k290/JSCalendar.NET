@@ -3,6 +3,7 @@ using Lib.Models;
 using Lib.Models.DataTypes;
 using System;
 using System.Collections.Generic;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace Lib.Builders
@@ -73,6 +74,25 @@ namespace Lib.Builders
             JsCalendarObject.Description = description;
             return (B)this;
         }
+
+
+        //IANA content types have parameters specified for each type, https://www.iana.org/assignments/media-types/media-types.xhtml
+        //It will take a long time to build out a properly conformant library of enums and allowed params
+        //We should store it as this combination (or some kind of value type) and then it knows how to validate it when serializing
+        //This will also make deserializing better - can define a custom deserializeer.
+        public B WithDescriptionContentType(string textContentType, IDictionary<string, string> parameters)
+        {
+            var stringBuilder = new StringBuilder();
+            if (!textContentType.StartsWith("text/"))
+            {
+                stringBuilder.Append("text/");
+            }
+            stringBuilder.Append(textContentType);
+            stringBuilder.AppendJoin("; ", parameters);
+            JsCalendarObject.DescriptionContentType = stringBuilder.ToString(); //todo
+            return (B)this;
+        }
+
         public E Build()
         {
             var validator = new V();

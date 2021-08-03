@@ -4,8 +4,6 @@ using Lib.Models.DataTypes;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
@@ -48,6 +46,9 @@ namespace Lib.Models
 
         [JsonPropertyName("description")]
         public string Description { get; internal set; } = string.Empty;
+
+        [JsonPropertyName("descriptionContentType")]
+        public string DescriptionContentType { get; internal set; } = "text/plain";
 
         public string GetJson()
         {

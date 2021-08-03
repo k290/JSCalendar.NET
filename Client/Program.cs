@@ -14,6 +14,8 @@ namespace Client
                                  .WithUid("group01")
                                  .WithSequence(1)
                                  .WithTitle("mytitle")
+                                 .WithDescription("mydesc")
+                                 .WithDescriptionContentType("html", new Dictionary<string, string> { { "charset", "utf-8" }, { "otherparam", "thing" } })
                                  .WithMethod(MethodType.Publish)
                                  .WithUpdateDate(new DateTime(2021, 02, 01, 11, 20, 5, 0,  DateTimeKind.Utc))
                                  .WithCreateDate(new DateTime(2021, 01, 01, 11, 20, 5, 120, DateTimeKind.Utc))
