@@ -29,10 +29,12 @@ namespace Lib.Models
 
         [JsonIgnore(Condition = JsonIgnoreCondition.WhenWritingDefault)]
         [JsonPropertyName("created")]
-        public DateTime? Created { get; internal set; }
+        [JsonConverter(typeof(UtcDateConverter))]
+        public UtcDate? Created { get; internal set; }
 
         [JsonPropertyName("updated")]
-        public DateTime Updated { get; internal set; }
+        [JsonConverter(typeof(UtcDateConverter))]
+        public UtcDate Updated { get; internal set; }
 
         [JsonPropertyName("sequence")]
         public uint Sequence { get; internal set; } = 0;
@@ -77,12 +79,12 @@ namespace Lib.Models
     {
         public JSCommonValidator()
         {
+
             RuleFor(e => e.Type).NotEmpty();
             RuleFor(e => e.Uid).NotEmpty();
-            //todo will probably need a value type for UTCdate because this will likely keep being repeated
-            RuleFor(e => e.Updated).NotEmpty()
-                .Must((context, date) => date.Kind == DateTimeKind.Utc).WithMessage("DateTime Kind for updated must be UTC");
-            RuleFor(e => e.Created).Must((context, date) => date is null || date?.Kind == DateTimeKind.Utc).WithMessage("DateTime Kind for created must be UTC");
+            RuleFor(e => e.Updated).NotEmpty().SetValidator(new UtcDateValidator());
+            RuleFor(e => e.Created!).SetValidator(new NullUtcDateValidator()).Unless(x => x.Created is null);
+
 
         }
     }

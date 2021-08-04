@@ -41,13 +41,13 @@ namespace Lib.Builders
 
         public B WithUpdateDate(DateTime updateDate)
         {
-            JsCalendarObject.Updated = updateDate;
+            JsCalendarObject.Updated = (UtcDate)updateDate;
             return (B)this;
         }
 
         public B WithCreateDate(DateTime createDate)
         {
-            JsCalendarObject.Created = createDate;
+            JsCalendarObject.Created = (UtcDate)createDate;
             return (B)this;
         }
 
