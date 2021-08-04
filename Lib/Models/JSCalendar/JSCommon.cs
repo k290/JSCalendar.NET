@@ -83,7 +83,7 @@ namespace Lib.Models
             RuleFor(e => e.Type).NotEmpty();
             RuleFor(e => e.Uid).NotEmpty();
             RuleFor(e => e.Updated).NotEmpty().SetValidator(new UtcDateValidator());
-            RuleFor(e => e.Created!).SetValidator(new NullUtcDateValidator()).Unless(x => x.Created is null);
+            RuleFor(e => e.Created).SetValidator(new NullUtcDateValidator());
 
 
         }
