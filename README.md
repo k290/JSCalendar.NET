@@ -2,7 +2,8 @@
 
 A fluent .NET implementaiton of the IETF JSCalendar spec. The spec is intended to supersede the iCal spec. The reasons for this can be found in the spec itself.
 
-https://datatracker.ietf.org/doc/html/rfc8984
+The spec: https://datatracker.ietf.org/doc/html/rfc8984
+A list of properties in the spec: https://www.iana.org/assignments/jscalendar/jscalendar.xhtml
 
 A brief overview can be found here: https://devguide.calconnect.org/jsCalendar-Topics/introduction/
 
