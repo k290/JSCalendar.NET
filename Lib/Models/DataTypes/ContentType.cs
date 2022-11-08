@@ -12,39 +12,20 @@ using System.Threading.Tasks;
 namespace Lib.Models.DataTypes
 {
 
-    public readonly struct ContentType
-    {
-        private readonly string contentType;
-        private readonly IDictionary<string, string> parameters;
+    //mhh todo cant rememvber what this was for. Seems like we were going to build something similar to UtcDate but for a ContentType field
+    //public readonly struct ContentType
+    //{
+    //    private readonly string contentType;
+    //    private readonly IDictionary<string, string> parameters;
 
-        public ContentType(DateTime date)
-        {
-            this.date = date;
-        }
+    //    public ContentType(DateTime date)
+    //    {
+    //        this.date = date;
+    //    }
 
-        public static implicit operator DateTime(UtcDate u) => u.date;
-        public static explicit operator UtcDate(DateTime d) => new(d);
+    //    public static implicit operator DateTime(UtcDate u) => u.date;
+    //    public static explicit operator UtcDate(DateTime d) => new(d);
 
-        public override string ToString() => $"{date}";
-    }
-
-    public class UtcDateValidator : AbstractValidator<UtcDate>
-    {
-        public UtcDateValidator()
-        {
-
-            RuleFor(e => e).Must((context, date) => ((DateTime)date).Kind == DateTimeKind.Utc).WithMessage("DateTime Kind for updated must be UTC");
-
-        }
-    }
-
-    public class NullUtcDateValidator : AbstractValidator<UtcDate?>
-    {
-        public NullUtcDateValidator()
-        {
-
-            RuleFor(e => e).Must((context, date) => date is null || ((DateTime)date).Kind == DateTimeKind.Utc).WithMessage("DateTime Kind for updated must be UTC");
-
-        }
-    }
+    //    public override string ToString() => $"{date}";
+    //}
 }
